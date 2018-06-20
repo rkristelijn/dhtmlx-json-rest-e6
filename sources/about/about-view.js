@@ -1,5 +1,5 @@
 import { DHXView } from 'dhx-optimus';
-var about = require('templates/about.html');
+var about = require('./about-template.html');
 
 export class AboutView extends DHXView {
   render() {

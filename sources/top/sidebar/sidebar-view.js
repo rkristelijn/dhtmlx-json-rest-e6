@@ -27,8 +27,7 @@ export class SidebarView extends DHXView {
         {
           id: 'contacts',
           text: 'Contacts',
-          icon: 'fa fa-user',
-          selected: true
+          icon: 'fa fa-user'
         },
         {
           id: 'projects',

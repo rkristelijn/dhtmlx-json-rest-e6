@@ -11,9 +11,9 @@ This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framewor
 
 # Plan of approach
 
-- [ ] WIP: Restructure files [feature-oriented instead of type-oriented](https://softwareengineering.stackexchange.com/questions/338597/folder-by-type-or-folder-by-feature)
-- [ ] add the REST API from [My version of CRM System - demo app](https://github.com/rkristelijn/dhtmlx-json-node)
+- [X] Restructure files [feature-oriented instead of type-oriented](https://softwareengineering.stackexchange.com/questions/338597/folder-by-type-or-folder-by-feature)
 - [ ] Implement the views per es6
+- [ ] Add the REST API from [My version of CRM System - demo app](https://github.com/rkristelijn/dhtmlx-json-node)
 - [ ] Add missing GUI's to create,update,delete data (sales, events, settings)
 - [ ] Restructure data to save dateTypes in real dates, numberTypes in real numbers, implement bounded picklists
 - [ ] Implement detail views

@@ -1,7 +1,7 @@
 import 'less/app.less';
 
 import { DHXApp } from 'dhx-optimus';
-import { TopView } from 'views/top.js';
+import { TopView } from './top/top-view.js';
 
 
 class MyApp extends DHXApp {

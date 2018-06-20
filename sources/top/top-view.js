@@ -1,12 +1,12 @@
 import { DHXView } from 'dhx-optimus';
 
-import { TopbarView } from 'views/topbar.js';
-import { SidebarView } from 'views/sidebar.js';
-import { AboutView } from 'views/about.js';
-import { ProjectsView } from 'views/projects.js';
-import { ContactsView } from 'views/contacts.js';
-import { EventsView } from 'views/events.js';
-import { SettingsView } from 'views/settings.js';
+import { TopbarView } from './topbar/topbar-view.js';
+import { SidebarView } from './sidebar/sidebar-view.js';
+import { AboutView } from '../about/about-view.js';
+import { ProjectsView } from '../projects/projects-view.js';
+import { ContactsView } from '../contacts/contacts-view.js';
+import { EventsView } from '../events/events-view.js';
+import { SettingsView } from '../settings/settings-view.js';
 
 import route from 'riot-route';
 
@@ -62,7 +62,7 @@ export class TopView extends DHXView {
       route(id);
     });
 
-    this.show(ProjectsView, 'right');
+    //this.show(ProjectsView, 'right');
 
   }
 }
