@@ -1,6 +1,6 @@
 import { DHXView } from 'dhx-optimus';
 
-export class ContactsDetailView extends DHXView {
+export class ProjectsSalesView extends DHXView {
   render() {
     this.ui = this.root.attachForm([
       { type: "settings", position: "label-left", labelWidth: 110, inputWidth: 160 },
