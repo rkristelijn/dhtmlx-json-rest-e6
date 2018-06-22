@@ -5,9 +5,18 @@ export class SidebarView extends DHXView {
     dhtmlXSideBar.prototype.templates.faTiles =
       '<i><div class="dhxsidebar_item_icon #icon#"></div><div class="dhxsidebar_item_text">#text#</div></i>';
     this.ui = this.root.attachSidebar({
+      // single_cell : true,
       template: 'faTiles'
     });
-    this.ui.attachEvent('onSelect', (id) => this.callEvent('SideBar', [id]));
+    this.ui.attachEvent('onSelect', (id) => {
+
+      if(id === 'menu') {
+        this.ui.conf.selected = null;
+      } else {
+        this.ui._setItemInactive('menu');
+      }
+      this.callEvent('SideBar', [id]);
+    });
     this._load();
 
     this.addService('SidebarService', {
@@ -20,6 +29,15 @@ export class SidebarView extends DHXView {
   _load() {
     const struct = {
       items: [
+        {
+          id: 'menu',
+          text: '',
+          icon: 'fa fa-bars'
+        },
+        {
+          id: "sep1",     // separator id
+          type: "separator" // item type, mandatory
+        },
         {
           id: 'contacts',
           text: 'Contacts',

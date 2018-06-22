@@ -18,3 +18,7 @@ This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framewor
 - [ ] Restructure data to save dateTypes in real dates, numberTypes in real numbers, implement bounded picklists
 - [ ] Implement detail views
 
+# Solved challenges
+- [x] Structure code in a way that is reusable, easy to read and maintain
+- [x] Implement routes to be able to navigate to views and specific records
+
