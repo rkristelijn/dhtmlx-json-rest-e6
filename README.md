@@ -21,4 +21,6 @@ This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framewor
 # Solved challenges
 - [x] Structure code in a way that is reusable, easy to read and maintain
 - [x] Implement routes to be able to navigate to views and specific records
+- [x] Solved url #/contacts/id, alerting when the id is not found in the loaded records, filtering alphanumeric, showing a modal dialogue, highlighting the first record
+- [x] fixed the navigation bar, being able to collapse (default) and show using 'hamburger menu'
 
