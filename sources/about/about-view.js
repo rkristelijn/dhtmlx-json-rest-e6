@@ -8,7 +8,8 @@ export class AboutView extends DHXView {
       author: 'Stanislaw Wolski',
       version: '0.x',
       author1: 'Remi Kristelijn',
-      version1: '1.x'
+      version1: '1.x',
+      version2: '1.1'
     }
     ));
   }
