@@ -10,9 +10,10 @@ export class ProjectsGridView extends DHXView {
     this._load();
 
     this.ui.attachEvent('onRowSelect', (id) => {
-      this.getService('ProjectsFormService').load(
-        this.getService('ProjectsGridService').getRowData(id)
-      );
+      let rowId = this.getService('ProjectsGridService').getRowData(id);
+      this.getService('ProjectsFormService').load(rowId);
+      this.getService('ProjectsSalesGraphService').load(rowId.id);
+      this.getService('ProjectsSalesGridService').load(rowId.id);
     })
 
     this.addService('ProjectsGridService', {

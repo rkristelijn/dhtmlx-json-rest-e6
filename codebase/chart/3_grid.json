@@ -1,0 +1,106 @@
+{
+  "head": [
+    {
+      "width": "120",
+      "id": "month",
+      "type": "ro",
+      "align": "left",
+      "sort": "na",
+      "value": "Month"
+    },
+    {
+      "width": "*",
+      "id": "sales",
+      "type": "ro",
+      "align": "left",
+      "sort": "na",
+      "value": "Sales"
+    }
+  ],
+  "rows": [
+    {
+      "id": "Jan",
+      "data": [
+        "30",
+        "Jan"
+      ]
+    },
+    {
+      "id": "Feb",
+      "data": [
+        "60",
+        "Feb"
+      ]
+    },
+    {
+      "id": "Mar",
+      "data": [
+        "90",
+        "Mar"
+      ]
+    },
+    {
+      "id": "Apr",
+      "data": [
+        "40",
+        "Apr"
+      ]
+    },
+    {
+      "id": "May",
+      "data": [
+        "30",
+        "May"
+      ]
+    },
+    {
+      "id": "Jun",
+      "data": [
+        "10",
+        "Jun"
+      ]
+    },
+    {
+      "id": "Jul",
+      "data": [
+        "80",
+        "Jul"
+      ]
+    },
+    {
+      "id": "Aug",
+      "data": [
+        "40",
+        "Aug"
+      ]
+    },
+    {
+      "id": "Sep",
+      "data": [
+        "90",
+        "Sep"
+      ]
+    },
+    {
+      "id": "Oct",
+      "data": [
+        "80",
+        "Oct"
+      ]
+    },
+    {
+      "id": "Nov",
+      "data": [
+        "50",
+        "Nov"
+      ]
+    },
+    {
+      "id": "Dec",
+      "data": [
+        "60",
+        "Dec"
+      ]
+    }
+  ]
+}
