@@ -20,14 +20,32 @@ export class EventsDataView extends DHXView {
       edit: false
     });
 
+    this.addService('EventsDataService', {
+      select: (id) => {
+        this.ui.select(id);
+      },
+      exists: (id) => {
+        return this.ui.exists(id);
+      }
+    });
+
     this.ui.attachEvent("onXLE", () => {
-      this.ui.select(this.ui.first());
+      let id = this._getDetailView();
+      let exists = this.getService('EventsDataService').exists(id);
+      if(!exists) this.ui.select(this.ui.first());
+      else this.ui.select(id);
     });
     this.ui.attachEvent('onAfterSelect', (id) => {
       let data = this.ui.get(id);
       this.getService('EventsFormService').load(data);
+      window.history.replaceState({ type: 'events', id: id }, `Event: ${id}`, `#events/${id}`);
     });
     this._load();
+  }
+  _getDetailView() {
+    let url = window.location.href.match(/#(.*events\/)(.*)/);
+    let rowId = url && url.length === 3 ? url[2] : false;
+    return rowId;
   }
 
   _load() {

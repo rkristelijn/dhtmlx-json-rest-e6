@@ -19,7 +19,6 @@ export class ProjectsView extends DHXView {
         height: 250
       }]
     });
-    console.log(this.ui.listAutoSizes());
     this.ui.setAutoSize("a;c", "a;b");
 
     this.show(ProjectsGridView, this.ui.cells('a'));

@@ -14,6 +14,7 @@ export class ProjectsGridView extends DHXView {
       this.getService('ProjectsFormService').load(rowId);
       this.getService('ProjectsSalesGraphService').load(rowId.id);
       this.getService('ProjectsSalesGridService').load(rowId.id);
+      window.history.replaceState({ type: 'projects', id: id }, `Project: ${id}`, `#projects/${id}`);
     })
 
     this.addService('ProjectsGridService', {

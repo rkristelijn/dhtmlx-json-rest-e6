@@ -1,6 +1,7 @@
 import { DHXView } from 'dhx-optimus';
+import route from 'riot-route';
 
-const eventsUrl = 'codebase/settings.json';
+const settingsUrl = 'codebase/settings.json';
 
 export class SettingsDataView extends DHXView {
   render() {
@@ -21,17 +22,38 @@ export class SettingsDataView extends DHXView {
       select: true,
       edit: false
     });
-
+    this.addService('SettingsDataService', {
+      select: (id) => {
+        this.ui.select(id);
+      }
+    });
     this.ui.attachEvent("onXLE", () => {
-      this.ui.select(this.ui.first());
+      let id = this._getDetailView();
+      if(!id) this.ui.select(this.ui.first());
+      else this.ui.select(id);
     });
     this.ui.attachEvent('onAfterSelect', (id) => {
-      this.getService('ContactsFormService').loadStruct(id);
+      let isValidId = this._isValidId(id);
+      if (!isValidId) {
+        dhtmlx.alert(`${rowId.replace(/[^a-z0-9]/gi, '')} is not found`);
+      } else {
+        this.getService('SettingsFormService').loadStruct(id);
+        window.history.replaceState({ type: 'settings', id: id }, `Settings: ${id}`, `#settings/${id}`);
+      }
     });
     this._load();
   }
-
+  _getDetailView() {
+    let url = window.location.href.match(/#(.*settings\/)(.*)/);
+    let rowId = url && url.length === 3 ? url[2] : false;
+    return rowId;
+  }
   _load() {
-    this.ui.load(eventsUrl, 'json');
+    this.ui.load(settingsUrl, 'json');
+  }
+  _isValidId(id) {
+    let ids = ['contacts', 'events', 'projects', 'configuration', 'exportprint', 'notifications', 'statistics', 'removeworkspace'];
+    let search = "" + id;
+    return ids.indexOf(search) >= 0;
   }
 }

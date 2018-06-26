@@ -13,6 +13,7 @@ export class ContactsGridView extends DHXView {
       this.getService('ContactsFormService').load(
         this.getService('ContactsGridService').getRowData(id)
       );
+      window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
     })
 
     this.addService('ContactsGridService', {

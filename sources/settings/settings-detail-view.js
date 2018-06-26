@@ -2,7 +2,7 @@ import { DHXView } from 'dhx-optimus';
 
 export class SettingsDetailView extends DHXView {
   render() {
-    this.addService('ContactsFormService', {
+    this.addService('SettingsFormService', {
       loadStruct: (id) => {
         this._load(id);
       }
