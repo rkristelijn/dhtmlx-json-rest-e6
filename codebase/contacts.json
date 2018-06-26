@@ -11,7 +11,7 @@
     {
       "width": "150",
       "id": "name",
-      "type": "ro",
+      "type": "ed",
       "align": "left",
       "sort": "na",
       "value": "#cspan"
@@ -19,9 +19,9 @@
     {
       "width": "130",
       "id": "dob",
-      "type": "ro",
+      "type": "ed",
       "align": "left",
-      "sort": "na",
+      "sort": "date",
       "value": "Date of Birth"
     },
     {
@@ -71,7 +71,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/margaret-black.jpg\" border=\"0\" class=\"contact_photo\">",
         "Margaret Black",
-        "9/1/1985",
+        "1985-08-31T22:00:00.000Z",
         "CEO",
         "mblack_ceo@mail.com",
         "1-805-287-4750",
@@ -83,7 +83,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/john-woken.jpg\" border=\"0\" class=\"contact_photo\">",
         "John Woken",
-        "3/24/1987",
+        "1987-03-23T23:00:00.000Z",
         "Business analyst",
         "john.woken@mail.com",
         "1-867-777-9834",
@@ -95,7 +95,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/jake-peterson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Jake Peterson",
-        "11/27/1982",
+        "1982-11-26T23:00:00.000Z",
         "Accountant",
         "jake.peterson@mail.com",
         "1-845-257-9751",
@@ -107,7 +107,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/bill-jackson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Bill Jackson",
-        "5/3/1980",
+        "1980-05-02T22:00:00.000Z",
         "Web developer",
         "Bill.Jackson@mail.com",
         "1-874-548-9751",
@@ -119,7 +119,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/jennifer-miles.jpg\" border=\"0\" class=\"contact_photo\">",
         "Jennifer Miles",
-        "4/17/1985",
+        "1985-04-16T22:00:00.000Z",
         "Project manager",
         "Jennifer.Miles@mail.com",
         "1-852-895-9752",
@@ -131,7 +131,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/cortny-barrens.jpg\" border=\"0\" class=\"contact_photo\">",
         "Cortny Barrens",
-        "6/20/1979",
+        "1979-06-19T22:00:00.000Z",
         "Sales manager",
         "Cortny.Barrens@mail.com",
         "1-842-458-1452",
@@ -143,7 +143,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/edward-eden.jpg\" border=\"0\" class=\"contact_photo\">",
         "Edward Eden",
-        "1/14/1983",
+        "1983-01-13T23:00:00.000Z",
         "Business analyst",
         "Edward.Eden@mail.com",
         "1-863-452-4750",
@@ -155,7 +155,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/andrew-scott.jpg\" border=\"0\" class=\"contact_photo\">",
         "Andrew Scott",
-        "2/15/1980",
+        "1980-02-14T23:00:00.000Z",
         "HR manager",
         "Andrew.Scott@mail.com",
         "1-874-452-4873",
@@ -167,7 +167,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/steve-anderson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Steve Anderson",
-        "4/17/1978",
+        "1978-04-16T22:00:00.000Z",
         "Business analyst",
         "Steve.Anderson@mail.com",
         "1-863-548-4874",
@@ -179,7 +179,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/jane-wilson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Jane Wilson",
-        "6/25/1980",
+        "1980-06-24T22:00:00.000Z",
         "Product manager",
         "Jane.Wilson@mail.com",
         "1-863-452-9834",
@@ -191,7 +191,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/alan-robbinson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Alan Robbinson",
-        "8/16/1970",
+        "1970-08-15T23:00:00.000Z",
         "Web developer",
         "Alan.Robbinson@mail.com",
         "1-863-452-9752",
@@ -203,7 +203,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/william-parson.jpg\" border=\"0\" class=\"contact_photo\">",
         "William Parson",
-        "10/2/1969",
+        "1969-10-01T22:00:00.000Z",
         "Cheif engineer",
         "William.Parson@mail.com",
         "1-874-452-4877",
@@ -215,7 +215,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/charlotte-wolks.jpg\" border=\"0\" class=\"contact_photo\">",
         "Charlotte Wolks",
-        "12/4/1989",
+        "1989-12-03T23:00:00.000Z",
         "Marketing specialist",
         "Charlotte.Wolks@mail.com",
         "1-863-452-4750",
@@ -227,7 +227,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/pamela-worner.jpg\" border=\"0\" class=\"contact_photo\">",
         "Pamela Worner",
-        "11/17/1976",
+        "1976-11-16T23:00:00.000Z",
         "Business analyst",
         "Pamela.Worner@mail.com",
         "1-863-548-4879",
@@ -239,7 +239,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/ralf-ross.jpg\" border=\"0\" class=\"contact_photo\">",
         "Ralf Ross",
-        "9/29/1973",
+        "1973-09-28T23:00:00.000Z",
         "Sales manager",
         "Ralf.Ross@mail.com",
         "1-863-452-9751",
@@ -251,7 +251,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/dan-witley.jpg\" border=\"0\" class=\"contact_photo\">",
         "Dan Witley",
-        "1/5/1978",
+        "1978-01-04T23:00:00.000Z",
         "Web developer",
         "Dan.Witley@mail.com",
         "1-874-452-9834",
@@ -263,7 +263,7 @@
       "data": [
         "<img src=\"codebase/imgs/contacts/small/anna-harrison.jpg\" border=\"0\" class=\"contact_photo\">",
         "Anna Harrison",
-        "5/8/1984",
+        "1984-05-07T22:00:00.000Z",
         "QA engineer",
         "Anna.Harrison@mail.com",
         "1-863-548-9751",
