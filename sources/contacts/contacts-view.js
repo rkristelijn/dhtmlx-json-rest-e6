@@ -15,6 +15,7 @@ export class ContactsView extends DHXView {
         width: 300,
       }]
     });
+    this.ui.setAutoSize('a', 'a;b');
     this.show(ContactsGridView, this.ui.cells('a'));
     this.show(ContactsDetailView, this.ui.cells('b'));
   }

@@ -13,13 +13,15 @@ export class ProjectsView extends DHXView {
       }, {
         id: 'b',
         header: false,
-        width: 330
+        width: 300
       }, {
         id: 'c',
-        header: false,
-        height: 350,
+        height: 250
       }]
     });
+    console.log(this.ui.listAutoSizes());
+    this.ui.setAutoSize("a;c", "a;b");
+
     this.show(ProjectsGridView, this.ui.cells('a'));
     this.show(ProjectsDetailView, this.ui.cells('b'));
     this.show(ProjectsSubView, this.ui.cells('c'));

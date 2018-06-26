@@ -15,7 +15,7 @@ export class EventsView extends DHXView {
         width: 300,
       }]
     });
-
+    this.ui.setAutoSize('a', 'a;b');
     this.show(EventsDataView, this.ui.cells('a'));
     this.show(EventsDetailView, this.ui.cells('b'));
   }
