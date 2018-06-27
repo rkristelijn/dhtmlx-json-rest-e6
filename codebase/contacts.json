@@ -13,13 +13,13 @@
       "id": "name",
       "type": "ed",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "#cspan"
     },
     {
       "width": "130",
       "id": "dob",
-      "type": "dhxCalendar",
+      "type": "dhxCalendarA",
       "align": "left",
       "sort": "date",
       "value": "Date of Birth"
@@ -27,15 +27,15 @@
     {
       "width": "130",
       "id": "pos",
-      "type": "ro",
+      "type": "coro",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Position"
     },
     {
       "width": "170",
       "id": "email",
-      "type": "ro",
+      "type": "link",
       "align": "left",
       "sort": "na",
       "value": "E/mail Address"

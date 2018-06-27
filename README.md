@@ -67,3 +67,30 @@ Here's why:
 1. ISO 8601 is endorsed by [W3C](http://www.w3.org/TR/NOTE-datetime), [RFC3339](http://tools.ietf.org/html/rfc3339), and [XKCD](http://xkcd.com/1179/)
 
 **That being said**, every date library ever written can understand "milliseconds since 1970". So for easy portability, ThiefMaster is right."
+
+However, I want to use the default dhx format, and is seems to be related to the system format, idk, will find that out later. The backend should provide the right format for the view, because the REST API is in service of the view. This format now seems 'dd/mm/yyyy' -> as my local date format. If it is the same throughout the entire app, it will be ok if no multi lingual stuff is happening. For now let's not fix issues that are not there yet.
+
+## Read Only
+
+This one's easy, just update a css to remove the border and flag the control as read-only using `attributes: ["readonly"], readonly: true, className: 'input-read-only' `
+
+## Single Value Pick List
+
+
+
+## Number
+## Currency
+## Multi Value Pick List
+## E-mail
+## Phone
+## State Machine
+## Color Picker
+## Multiline and simple format
+## Checkbox
+## Slider
+## Hyperlinks
+## Images
+## Sales
+## Tree-like column
+## Grid-like column
+## Radio

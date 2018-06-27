@@ -6,15 +6,57 @@ const contactsUrl = 'codebase/contacts.json';
 export class ContactsGridView extends DHXView {
   render() {
     this.ui = this.root.attachGrid();
+    this.ui.enableEditEvents(true, false, true);
+    this.ui.enableValidation(true);
+    this.ui.setColValidators(",NotEmpty,ValidDate,,ValidEmail,ValidNumeric,");
     this.ui.init();
     this._load();
+    this._populateCombo(this.ui.getCombo(3));
 
-    this.ui.attachEvent('onRowSelect', (id) => {
-      this.getService('ContactsFormService').load(
-        this.getService('ContactsGridService').getRowData(id)
-      );
-      window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
-    })
+    this.ui.confirm = {
+      show: (type, title, message, cb) => {
+        dhtmlx.message({
+          type: type,
+          title: title + this.boxCounter,
+          text: message,
+          callback: function (r) { cb(r); }
+        });
+        return true;
+      }
+    }
+
+    this.ui.attachEvent('onValidationError', (row, col, value) => {
+      console.log('input', value);
+      switch (col) {
+        case 1:
+          this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
+            (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+          );
+          return true;
+          break;
+        case 2:
+          let parts = value.split('/');
+          console.log(parts);
+          if (parts.length !== 3) {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          let dt = new Date(parts[2], parts[1], parts[0], 0, 0, 0);
+          if (dt === 'Invalid Date') return true;
+          console.log(dt.getDate(), dt.getMonth(), dt.getFullYear());
+          if(!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && dt.getMonth() === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+            return false;
+          } else {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          break;
+      }
+    });
 
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
@@ -35,6 +77,32 @@ export class ContactsGridView extends DHXView {
         return this.ui.getAllRowIds(',').split(',');
       }
     });
+
+    this.ui.attachEvent('onRowSelect', (id) => {
+      this.getService('ContactsFormService').load(
+        this.getService('ContactsGridService').getRowData(id)
+      );
+      window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
+    });
+  }
+
+  _populateCombo(combo) {
+    let i = 0;
+    combo.put(i++, "Accountant");
+    combo.put(i++, "Back-end Developer");
+    combo.put(i++, "Business Analyst");
+    combo.put(i++, "Chief Executive Officer (CEO)");
+    combo.put(i++, "Chief Information Officer (CIO)");
+    combo.put(i++, "Chief Information Security Officer (CISO)");
+    combo.put(i++, "Chief Privacy Officer (CPO)");
+    combo.put(i++, "Front-end Developer");
+    combo.put(i++, "Full-stack Web Developer");
+    combo.put(i++, "HR Manager");
+    combo.put(i++, "Marketing specialist");
+    combo.put(i++, "Product manager");
+    combo.put(i++, "QA engineer");
+    combo.put(i++, "Sales manager");
+    combo.put(i++, "Web developer");
   }
 
   _getDetailView() {

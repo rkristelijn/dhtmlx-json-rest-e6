@@ -7,13 +7,18 @@ export class ContactsDetailView extends DHXView {
       { type: "container", name: "photo", label: "", inputWidth: 160, inputHeight: 160, offsetTop: 20, offsetLeft: 65 },
       { type: "input", name: "name", label: "Name", offsetTop: 20 },
       { type: "input", name: "dob-json", label: "JSON", attributes: ['readonly'], readonly: true, className: 'input-read-only' },
-      { type: "input", name: "email", label: "E-mail" },
+      { type: "input", name: "email", label: "E-mail", validate: "ValidEmail"},
       { type: "input", name: "phone", label: "Phone" },
       { type: "input", name: "company", label: "Company" },
       { type: "calendar", name: "dob", label: "Date of Birth", dateFormat: "%d/%m/%Y" },
       { type: "input", name: "info", label: "Additional info" },
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
+
+    this.ui.attachEvent('onValidationError', (id, index, value) => {
+      console.log('ValidationError', id, index, value);
+      return true;
+    });
     this.addService('ContactsFormService', {
       load: (data) => {
         let src = data.photo.match(/src=\"([^\"]*)\"/)[1];
