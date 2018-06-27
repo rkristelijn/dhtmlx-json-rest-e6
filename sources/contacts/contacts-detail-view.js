@@ -10,8 +10,7 @@ export class ContactsDetailView extends DHXView {
       { type: "input", name: "email", label: "E-mail" },
       { type: "input", name: "phone", label: "Phone" },
       { type: "input", name: "company", label: "Company" },
-      //{ type: "calendar", name: "dob", label: "Date of Birth", dateFormat:"%m-%d-%Y"},
-      { type: "calendar", name: "dob", label: "Date of Birth"},
+      { type: "calendar", name: "dob", label: "Date of Birth", dateFormat:"%d/%m/%Y"},
       { type: "input", name: "info", label: "Additional info" },
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true }
     ]);
@@ -19,7 +18,6 @@ export class ContactsDetailView extends DHXView {
       load: (data) => {
         let src = data.photo.match(/src=\"([^\"]*)\"/)[1];
         let dob = new Date(data.dob);
-        data.dob = this._getDateString(dob);
         this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/contacts/big/${src.match(/[^\/]*$/)[0]}" border="0" class="form_photo">`;
         this.ui.setFormData(data);
         this.ui.setItemValue('dob-json', dob.toJSON());
