@@ -69,7 +69,7 @@
     {
       "id": "1",
       "data": [
-        "<img src=\"codebase/imgs/contacts/small/margaret/black.jpg\" border=\"0\" class=\"contact_photo\">",
+        "<img src=\"codebase/imgs/contacts/small/margaret-black.jpg\" border=\"0\" class=\"contact_photo\">",
         "Margaret Black",
         "31/08/1985",
         "CEO",
@@ -105,7 +105,7 @@
     {
       "id": "4",
       "data": [
-        "<img src=\"codebase/imgs/contacts/small/bill/jackson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "<img src=\"codebase/imgs/contacts/small/bill-jackson.jpg\" border=\"0\" class=\"contact_photo\">",
         "Bill Jackson",
         "02/05/1980",
         "Web developer",

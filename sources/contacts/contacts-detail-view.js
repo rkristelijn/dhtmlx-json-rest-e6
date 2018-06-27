@@ -6,13 +6,13 @@ export class ContactsDetailView extends DHXView {
       { type: "settings", position: "label-left", labelWidth: 110, inputWidth: 160 },
       { type: "container", name: "photo", label: "", inputWidth: 160, inputHeight: 160, offsetTop: 20, offsetLeft: 65 },
       { type: "input", name: "name", label: "Name", offsetTop: 20 },
-      { type: "input", name: "dob-json", label:"JSON"},
+      { type: "input", name: "dob-json", label: "JSON", attributes: ['readonly'], readonly: true, className: 'input-read-only' },
       { type: "input", name: "email", label: "E-mail" },
       { type: "input", name: "phone", label: "Phone" },
       { type: "input", name: "company", label: "Company" },
-      { type: "calendar", name: "dob", label: "Date of Birth", dateFormat:"%d/%m/%Y"},
+      { type: "calendar", name: "dob", label: "Date of Birth", dateFormat: "%d/%m/%Y" },
       { type: "input", name: "info", label: "Additional info" },
-      { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true }
+      { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
     this.addService('ContactsFormService', {
       load: (data) => {
@@ -28,7 +28,7 @@ export class ContactsDetailView extends DHXView {
   //The default date format in dhtmlxCalendar is '%Y-%m-%d'.
   _getDateString(date) {
     return date.getFullYear() + '-'
-    + ('0' + (date.getMonth()+1)).slice(-2)  + '-'
-    + ('0' + date.getDate()).slice(-2);
+      + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
+      + ('0' + date.getDate()).slice(-2);
   }
 }
