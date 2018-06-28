@@ -9,7 +9,7 @@ export class ProjectsDetailView extends DHXView {
       { type: "input", name: "project", label: "Project" },
       { type: "input", name: "status", label: "Status" },
       { type: "input", name: "assign", label: "Assigned to" },
-      { type: "input", name: "info", label: "Additional info" },
+      { type: "input", name: "info", label: "Additional info<br>(HTML Allowed)", rows:3},
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
     this.addService('ProjectsFormService', {

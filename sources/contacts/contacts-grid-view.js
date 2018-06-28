@@ -11,7 +11,6 @@ export class ContactsGridView extends DHXView {
     this.ui.setColValidators(",NotEmpty,ValidDate,,ValidEmail,ValidNumeric,");
     this.ui.init();
     this._load();
-    this._populateCombo(this.ui.getCombo(3));
 
     this.ui.confirm = {
       show: (type, title, message, cb) => {
@@ -26,7 +25,6 @@ export class ContactsGridView extends DHXView {
     }
 
     this.ui.attachEvent('onValidationError', (row, col, value) => {
-      console.log('input', value);
       switch (col) {
         case 1:
           this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
@@ -36,17 +34,15 @@ export class ContactsGridView extends DHXView {
           break;
         case 2:
           let parts = value.split('/');
-          console.log(parts);
           if (parts.length !== 3) {
             this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
               (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
             );
             return true;
           }
-          let dt = new Date(parts[2], parts[1], parts[0], 0, 0, 0);
+          let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
           if (dt === 'Invalid Date') return true;
-          console.log(dt.getDate(), dt.getMonth(), dt.getFullYear());
-          if(!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && dt.getMonth() === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+          if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
             return false;
           } else {
             this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
@@ -57,6 +53,9 @@ export class ContactsGridView extends DHXView {
           break;
       }
     });
+    this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', (row, col, value) => {
+      console.log('ContactsGridView:onCellChanged', row, col, value);
+    });
 
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
@@ -64,6 +63,10 @@ export class ContactsGridView extends DHXView {
       },
       selectRow: (id) => {
         this.ui.selectRow(id);
+      },
+      setCellValue: (id, fieldName, value) => {
+        let fieldIndex = this.ui.getColIndexById(fieldName);
+        this.ui.cells(id, fieldIndex).setValue(value);
       },
       selectRowById: (id) => {
         this.ui.selectRowById(id, true, true, true);
@@ -75,8 +78,31 @@ export class ContactsGridView extends DHXView {
       },
       getAllRowIds: () => {
         return this.ui.getAllRowIds(',').split(',');
+      },
+      getPositions: () => {
+        return [
+          "Accountant",
+          "Back-end Developer",
+          "Business Analyst",
+          "Chief Engineer",
+          "Chief Executive Officer (CEO)",
+          "Chief Information Officer (CIO)",
+          "Chief Information Security Officer (CISO)",
+          "Chief Privacy Officer (CPO)",
+          "Front-end Developer",
+          "Full-stack Web Developer",
+          "HR Manager",
+          "Marketing Specialist",
+          "Product Manager",
+          "Project Manager",
+          "QA Engineer",
+          "Sales Manager",
+          "Web Developer"
+        ];
       }
     });
+
+    this._populateCombo(this.ui.getCombo(3));
 
     this.ui.attachEvent('onRowSelect', (id) => {
       this.getService('ContactsFormService').load(
@@ -87,22 +113,11 @@ export class ContactsGridView extends DHXView {
   }
 
   _populateCombo(combo) {
-    let i = 0;
-    combo.put(i++, "Accountant");
-    combo.put(i++, "Back-end Developer");
-    combo.put(i++, "Business Analyst");
-    combo.put(i++, "Chief Executive Officer (CEO)");
-    combo.put(i++, "Chief Information Officer (CIO)");
-    combo.put(i++, "Chief Information Security Officer (CISO)");
-    combo.put(i++, "Chief Privacy Officer (CPO)");
-    combo.put(i++, "Front-end Developer");
-    combo.put(i++, "Full-stack Web Developer");
-    combo.put(i++, "HR Manager");
-    combo.put(i++, "Marketing specialist");
-    combo.put(i++, "Product manager");
-    combo.put(i++, "QA engineer");
-    combo.put(i++, "Sales manager");
-    combo.put(i++, "Web developer");
+    let positions = this.getService('ContactsGridService').getPositions();
+
+    for (let index in positions) {
+      combo.put(index, positions[index]);
+    }
   }
 
   _getDetailView() {

@@ -11,7 +11,7 @@
     {
       "width": "210",
       "id": "project",
-      "type": "ro",
+      "type": "ed",
       "align": "left",
       "sort": "na",
       "value": "Project"
@@ -19,7 +19,7 @@
     {
       "width": "120",
       "id": "status",
-      "type": "ro",
+      "type": "co",
       "align": "left",
       "sort": "na",
       "value": "Status"
@@ -27,7 +27,7 @@
     {
       "width": "230",
       "id": "assign",
-      "type": "ro",
+      "type": "co",
       "align": "left",
       "sort": "na",
       "value": "Assigned to"
@@ -35,7 +35,7 @@
     {
       "width": "*",
       "id": "info",
-      "type": "ro",
+      "type": "txt",
       "align": "left",
       "sort": "na",
       "value": "Additional"
