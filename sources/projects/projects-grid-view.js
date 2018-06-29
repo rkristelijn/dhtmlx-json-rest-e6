@@ -6,6 +6,7 @@ const projectsUrl = 'codebase/projects.json';
 export class ProjectsGridView extends DHXView {
   render() {
     this.ui = this.root.attachGrid();
+    this.ui.enableEditEvents(true, false, true);
     this.ui.init();
     this._load();
 

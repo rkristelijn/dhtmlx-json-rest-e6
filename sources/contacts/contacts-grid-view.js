@@ -10,7 +10,9 @@ export class ContactsGridView extends DHXView {
     this.ui.enableValidation(true);
     this.ui.setColValidators(",NotEmpty,ValidDate,,ValidEmail,ValidNumeric,");
     this.ui.init();
-    this._load();
+    this._load(() => {
+      this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', this.ui.cellChangedHandler);
+    });
 
     this.ui.confirm = {
       show: (type, title, message, cb) => {
@@ -53,9 +55,11 @@ export class ContactsGridView extends DHXView {
           break;
       }
     });
-    this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', (row, col, value) => {
-      console.log('ContactsGridView:onCellChanged', row, col, value);
-    });
+    this.ui.cellChangedHandler = (row, col, value) => {
+      let name = this.ui.getColumnId(col);
+      console.log('ContactsGridView:onCellChanged', row, col, name, value);
+      this.getService('ContactsFormService').setItemValue(name, value);
+    };
 
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
@@ -66,7 +70,9 @@ export class ContactsGridView extends DHXView {
       },
       setCellValue: (id, fieldName, value) => {
         let fieldIndex = this.ui.getColIndexById(fieldName);
+        this.ui.detachEvent(this.ui.cellChangeEvent);
         this.ui.cells(id, fieldIndex).setValue(value);
+        this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', this.ui.cellChangedHandler);
       },
       selectRowById: (id) => {
         this.ui.selectRowById(id, true, true, true);
@@ -132,7 +138,7 @@ export class ContactsGridView extends DHXView {
     return ids.indexOf(search) >= 0;
   }
 
-  _load() {
+  _load(callback) {
     this.ui.load(contactsUrl, () => {
       let rowId = this._getDetailView();
       let isValidId = this._isValidId(rowId);
@@ -145,6 +151,7 @@ export class ContactsGridView extends DHXView {
         } else {
           this.getService('ContactsGridService').selectFirstRow();
         }
+        callback();
       }
     }, 'json');
   }

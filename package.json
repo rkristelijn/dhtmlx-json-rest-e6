@@ -9,7 +9,7 @@
     "lint": "gulp lint",
     "codebase": "webpack",
     "watch": "webpack --watch",
-    "server": "webpack-dev-server",
+    "server": "webpack-dev-server --open",
     "build": "gulp build",
     "deploy": "gulp deploy"
   },
