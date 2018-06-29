@@ -1,35 +1,35 @@
 {
   "head": [
     {
-      "width": "120",
+      "width": "100",
       "id": "due",
       "type": "dhxCalendarA",
       "align": "left",
-      "sort": "na",
+      "sort": "date",
       "value": "Due date"
     },
     {
-      "width": "210",
+      "width": "150",
       "id": "project",
       "type": "ed",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Project"
     },
     {
-      "width": "120",
+      "width": "100",
       "id": "status",
       "type": "co",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Status"
     },
     {
-      "width": "230",
+      "width": "100",
       "id": "assign",
       "type": "co",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Assigned to"
     },
     {

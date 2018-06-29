@@ -35,8 +35,18 @@ export class ProjectsGridView extends DHXView {
       },
       getAllRowIds: () => {
         return this.ui.getAllRowIds(',').split(',');
+      },
+      getStatusList: () => {
+        return [
+          'Not started',
+          'In progress',
+          'Waiting',
+          'Closed'
+        ];
       }
     });
+
+    this._populateCombo(this.ui.getCombo(2));
   }
 
   _getDetailView() {
@@ -51,6 +61,13 @@ export class ProjectsGridView extends DHXView {
     return ids.indexOf(search) >= 0;
   }
 
+  _populateCombo(combo) {
+    let positions = this.getService('ProjectsGridService').getStatusList();
+
+    for (let index in positions) {
+      combo.put(index, positions[index]);
+    }
+  }
   _load() {
     this.ui.load(projectsUrl, () => {
       let rowId = this._getDetailView();
