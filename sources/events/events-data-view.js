@@ -26,13 +26,16 @@ export class EventsDataView extends DHXView {
       },
       exists: (id) => {
         return this.ui.exists(id);
+      },
+      update: (id, data) => {
+        this.ui.update(id, data);
       }
     });
 
     this.ui.attachEvent('onXLE', () => {
       let id = this._getDetailView();
       let exists = this.getService('EventsDataService').exists(id);
-      if(!exists) this.ui.select(this.ui.first());
+      if (!exists) this.ui.select(this.ui.first());
       else this.ui.select(id);
     });
     this.ui.attachEvent('onAfterSelect', (id) => {

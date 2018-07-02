@@ -27,7 +27,7 @@
     {
       "width": "100",
       "id": "assign",
-      "type": "co",
+      "type": "ro",
       "align": "left",
       "sort": "str",
       "value": "Assigned to"

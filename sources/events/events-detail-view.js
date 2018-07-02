@@ -13,6 +13,10 @@ export class EventsDetailView extends DHXView {
       { type: "input", name: "lng", label: "Longitude" },
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
+    this.ui.attachEvent('onChange', (fieldName, value) => {
+      let id = this.ui.getFormData().id;
+      this.getService('EventsDataService').update(id, this.ui.getFormData());
+    });
     this.addService('EventsFormService', {
       load: (data) => {
         this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/events/${data.image}" border="0" class="form_photo">`;
