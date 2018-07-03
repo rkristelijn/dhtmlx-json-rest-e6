@@ -1,5 +1,8 @@
 This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framework](https://docs.dhtmlx.com/optimus__index.html) (DHTMLX in es6) connected to a REST API on Node using JSON and fetch.
 
+# Demo
+[gius.nl](http://gius.nl/dhtmlx-es6/)
+
 # Related projects
 
 1. [Your First App tutorial](https://docs.dhtmlx.com/tutorials__first_app__index.html) showing you the basis or DHX

@@ -10,7 +10,7 @@
     "codebase": "webpack",
     "watch": "webpack --watch",
     "server": "webpack-dev-server --open",
-    "build": "gulp build",
+    "build": "gulp build --inspect",
     "deploy": "gulp deploy",
     "start": "webpack-dev-server --open --config webpack.dev.js"
   },
