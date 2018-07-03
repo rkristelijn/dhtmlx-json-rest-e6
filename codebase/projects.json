@@ -1,41 +1,41 @@
 {
   "head": [
     {
-      "width": "120",
+      "width": "100",
       "id": "due",
-      "type": "ro",
+      "type": "dhxCalendarA",
       "align": "left",
-      "sort": "na",
+      "sort": "date",
       "value": "Due date"
     },
     {
-      "width": "210",
+      "width": "150",
       "id": "project",
-      "type": "ro",
+      "type": "ed",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Project"
     },
     {
-      "width": "120",
+      "width": "100",
       "id": "status",
-      "type": "ro",
+      "type": "co",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Status"
     },
     {
-      "width": "230",
+      "width": "100",
       "id": "assign",
       "type": "ro",
       "align": "left",
-      "sort": "na",
+      "sort": "str",
       "value": "Assigned to"
     },
     {
       "width": "*",
       "id": "info",
-      "type": "ro",
+      "type": "txt",
       "align": "left",
       "sort": "na",
       "value": "Additional"
@@ -45,7 +45,7 @@
     {
       "id": "1",
       "data": [
-        "10/25/2015",
+        "25/10/2015",
         "ABC promoting campaign",
         "In progress",
         "Jennifer Miles, Cortny Barrens"
@@ -54,7 +54,7 @@
     {
       "id": "2",
       "data": [
-        "10/27/2015",
+        "27/10/2015",
         "Credit check",
         "In progress",
         "Jake Peterson"
@@ -63,7 +63,7 @@
     {
       "id": "3",
       "data": [
-        "10/7/2015",
+        "10/07/2015",
         "Financial report",
         "In progress",
         "Jake Peterson"
@@ -72,7 +72,7 @@
     {
       "id": "4",
       "data": [
-        "10/8/2015",
+        "10/08/2015",
         "Financial budget for 2016",
         "Waiting",
         "Jake Peterson"
@@ -81,7 +81,7 @@
     {
       "id": "5",
       "data": [
-        "12/4/2015",
+        "04/12/2015",
         "Testing new app platform",
         "Not started",
         "Bill Jackson, Edward Eden"
@@ -90,7 +90,7 @@
     {
       "id": "6",
       "data": [
-        "12/17/2015",
+        "17/12/2015",
         "Business training",
         "Not started",
         "Margaret Black, John Woken"

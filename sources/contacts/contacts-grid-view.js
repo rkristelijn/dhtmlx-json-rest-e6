@@ -6,15 +6,60 @@ const contactsUrl = 'codebase/contacts.json';
 export class ContactsGridView extends DHXView {
   render() {
     this.ui = this.root.attachGrid();
+    this.ui.enableEditEvents(true, false, true);
+    this.ui.enableValidation(true);
+    this.ui.setColValidators(",NotEmpty,ValidDate,,ValidEmail,ValidNumeric,");
     this.ui.init();
-    this._load();
+    this._load(() => {
+      this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', this.ui.cellChangedHandler);
+    });
 
-    this.ui.attachEvent('onRowSelect', (id) => {
-      this.getService('ContactsFormService').load(
-        this.getService('ContactsGridService').getRowData(id)
-      );
-      window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
-    })
+    this.ui.confirm = {
+      show: (type, title, message, cb) => {
+        dhtmlx.message({
+          type: type,
+          title: title + this.boxCounter,
+          text: message,
+          callback: function (r) { cb(r); }
+        });
+        return true;
+      }
+    }
+
+    this.ui.attachEvent('onValidationError', (row, col, value) => {
+      switch (col) {
+        case 1:
+          this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
+            (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+          );
+          return true;
+          break;
+        case 2:
+          let parts = value.split('/');
+          if (parts.length !== 3) {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
+          if (dt === 'Invalid Date') return true;
+          if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+            return false;
+          } else {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          break;
+      }
+    });
+    this.ui.cellChangedHandler = (row, col, value) => {
+      let name = this.ui.getColumnId(col);
+      console.log('ContactsGridView:onCellChanged', row, col, name, value);
+      this.getService('ContactsFormService').setItemValue(name, value);
+    };
 
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
@@ -22,6 +67,12 @@ export class ContactsGridView extends DHXView {
       },
       selectRow: (id) => {
         this.ui.selectRow(id);
+      },
+      setCellValue: (id, fieldName, value) => {
+        let fieldIndex = this.ui.getColIndexById(fieldName);
+        this.ui.detachEvent(this.ui.cellChangeEvent);
+        this.ui.cells(id, fieldIndex).setValue(value);
+        this.ui.cellChangeEvent = this.ui.attachEvent('onCellChanged', this.ui.cellChangedHandler);
       },
       selectRowById: (id) => {
         this.ui.selectRowById(id, true, true, true);
@@ -33,8 +84,46 @@ export class ContactsGridView extends DHXView {
       },
       getAllRowIds: () => {
         return this.ui.getAllRowIds(',').split(',');
+      },
+      getPositions: () => {
+        return [
+          "Accountant",
+          "Back-end Developer",
+          "Business Analyst",
+          "Chief Engineer",
+          "Chief Executive Officer (CEO)",
+          "Chief Information Officer (CIO)",
+          "Chief Information Security Officer (CISO)",
+          "Chief Privacy Officer (CPO)",
+          "Front-end Developer",
+          "Full-stack Web Developer",
+          "HR Manager",
+          "Marketing Specialist",
+          "Product Manager",
+          "Project Manager",
+          "QA Engineer",
+          "Sales Manager",
+          "Web Developer"
+        ];
       }
     });
+
+    this._populateCombo(this.ui.getCombo(3));
+
+    this.ui.attachEvent('onRowSelect', (id) => {
+      this.getService('ContactsFormService').load(
+        this.getService('ContactsGridService').getRowData(id)
+      );
+      window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
+    });
+  }
+
+  _populateCombo(combo) {
+    let positions = this.getService('ContactsGridService').getPositions();
+
+    for (let index in positions) {
+      combo.put(index, positions[index]);
+    }
   }
 
   _getDetailView() {
@@ -49,7 +138,7 @@ export class ContactsGridView extends DHXView {
     return ids.indexOf(search) >= 0;
   }
 
-  _load() {
+  _load(callback) {
     this.ui.load(contactsUrl, () => {
       let rowId = this._getDetailView();
       let isValidId = this._isValidId(rowId);
@@ -62,6 +151,7 @@ export class ContactsGridView extends DHXView {
         } else {
           this.getService('ContactsGridService').selectFirstRow();
         }
+        callback();
       }
     }, 'json');
   }

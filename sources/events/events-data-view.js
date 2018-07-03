@@ -8,7 +8,7 @@ export class EventsDataView extends DHXView {
       type: {
         template: "<div class='event_image'><img src='codebase/imgs/events/#image#' border='0' ondragstart='return false;'></div>" +
           "<div class='event_title'>#title#</div>" +
-          "<div class='event_date'>#date#</div>" +
+          "<div class='event_date'>#dateString#</div>" +
           "<div class='event_place'>#place#</div>",
         margin: 10,
         padding: 20,
@@ -26,13 +26,16 @@ export class EventsDataView extends DHXView {
       },
       exists: (id) => {
         return this.ui.exists(id);
+      },
+      update: (id, data) => {
+        this.ui.update(id, data);
       }
     });
 
-    this.ui.attachEvent("onXLE", () => {
+    this.ui.attachEvent('onXLE', () => {
       let id = this._getDetailView();
       let exists = this.getService('EventsDataService').exists(id);
-      if(!exists) this.ui.select(this.ui.first());
+      if (!exists) this.ui.select(this.ui.first());
       else this.ui.select(id);
     });
     this.ui.attachEvent('onAfterSelect', (id) => {
