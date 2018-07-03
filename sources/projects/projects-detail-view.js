@@ -61,11 +61,22 @@ export class ProjectsDetailView extends DHXView {
       load: (data) => {
         this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/projects/project.png" border="0" class="form_photo">`;
         let assigneesCombo = this.ui.getCombo('assign');
-        let checkedAssignees = data.assign.split(',');
-        for (let item of checkedAssignees) {
-          let index = assigneesCombo.getIndexByValue(item);
-          assigneesCombo.setChecked(index, true);
-        }
+        let checkedAssignees = data.assign.split(', ');
+
+        assigneesCombo.forEachOption(function (item) {
+          let index = assigneesCombo.getIndexByValue(item.value);
+          if (checkedAssignees.indexOf(item.value) == -1) {
+            assigneesCombo.setChecked(index, false);
+          } else {
+            assigneesCombo.setChecked(index, true);
+
+          }
+        });
+
+        // for (let item of checkedAssignees) {
+        //   let index = assigneesCombo.getIndexByValue(item);
+        //   assigneesCombo.setChecked(index, true);
+        // }
 
         this.ui.setFormData(data);
       },
