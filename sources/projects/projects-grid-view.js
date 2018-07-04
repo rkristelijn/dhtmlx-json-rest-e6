@@ -6,11 +6,6 @@ const projectsUrl = 'codebase/projects.json';
 
 export class ProjectsGridView extends DHXView {
   render() {
-    // from script
-    //let myCombo = new this.root.combo("combo_zone_script", "combo_script", 200, "checkbox"); // make sure you set 4th param to "checkbox"
-    //let myCombo = new dhtmlx.dhtmlXCombo("combo_zone", "combo", 230);
-    //let combo = this.root.dh.dhtmlxCombo("");
-
     this.ui = this.root.attachGrid();
     this.ui.enableEditEvents(true, false, true);
     this.ui.init();
@@ -19,6 +14,7 @@ export class ProjectsGridView extends DHXView {
     });
 
     this.ui.attachEvent('onRowSelect', (id) => {
+      //todo: fires again when starting to edit cell, causing the date on the form being Invalid
       let rowId = this.getService('ProjectsGridService').getRowData(id);
       this.getService('ProjectsFormService').load(rowId);
       this.getService('ProjectsSalesGraphService').load(rowId.id);
@@ -66,28 +62,7 @@ export class ProjectsGridView extends DHXView {
     });
 
     this._populateCombo(this.ui.getCombo(2));
-    //this._populateComboAssignees(this.ui.getCombo(3));
   }
-
-  // _populateComboAssignees(combo) {
-  //   // combo.setTemplate({
-  //   //   input: "#capital#, #country#",
-  //   //   columns: [
-  //   //     {header: "&nbsp;",  width:  41, 		option: "#checkbox#"}, // column for checkboxes
-  //   //     {header: "&nbsp;",  width:  40, css: "flag",    option: "<img src='#flag#' border='0' style='margin-top: 8px; margin-left: 2px;'>"},
-  //   //     {header: "Capital", width:  80, css: "capital", option: "#capital#"},
-  //   //     {header: "Country", width: 110, css: "country", option: "#country#"},
-  //   //     {header: "Proverb", width: 250, css: "proverb", option: "#proverb#"}
-  //   //   ]
-  //   // });
-
-  //   this._getAllAssignees().then((assignees) => {
-  //     for (let index in assignees) {
-  //       combo.put(index, assignees[index], true);
-  //       //combo.setChecked(index, true);
-  //     }
-  //   })
-  // }
 
   _getDetailView() {
     let url = window.location.href.match(/#(.*projects\/)(.*)/);
@@ -125,17 +100,4 @@ export class ProjectsGridView extends DHXView {
       }
     }, 'json');
   }
-
-  // _getAllAssignees() {
-  //   let assignees = [];
-  //   return fetch('./codebase/contacts.json')
-  //     .then(response => response.json())
-  //     .then((data) => {
-  //       for(let contact of data.rows) {
-  //         assignees.push(contact.data[1])
-  //       }
-  //       assignees.sort();
-  //       return assignees;
-  //     })
-  // }
 }

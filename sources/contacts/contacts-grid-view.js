@@ -57,7 +57,6 @@ export class ContactsGridView extends DHXView {
     });
     this.ui.cellChangedHandler = (row, col, value) => {
       let name = this.ui.getColumnId(col);
-      console.log('ContactsGridView:onCellChanged', row, col, name, value);
       this.getService('ContactsFormService').setItemValue(name, value);
     };
 

@@ -31,14 +31,13 @@ This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framewor
 - [x] Fixed validation on grid
 - [x] Fixed types: combo, date
 - [x] Fixed checked combo for Assigned to in Projects
+- [x] Bug: when combo is opened and clicked somewhere else, an error is thrown
 
 # Back log
 
 - [ ] Connect Node REST API: I'm not doing this because I want to create a demo with static content
 - [ ] I've learned that all events need to be handled manually across components showing the same data. It would be better if there's a shared model, where components can subscribe on.
 - [ ] Bug: when a validation fires, only enter/escape can close the modal dialogue, pressing 'ok' seems to work differently
-- [ ] Bug: when a date is being picked by the grid, the form temporarily will display 'Invalid Date'
-- [ ] Bug: when combo is opened and clicked somewhere else, an error is thrown
+- [ ] Bug: when a date is being picked by the grid, the form temporarily will display 'Invalid Date'. it does not seem related to the events, this is because onRowSelect is fired upon edit
+- [ ] Bug: `npm run build` works partly, I still need to remove `/codebase` from all sources and minification doesn't happen
 
-# Demo
-[here](http://gius.nl/dhtmlx-es6)
