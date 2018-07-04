@@ -98,7 +98,6 @@ export class ProjectsDetailView extends DHXView {
       .then((data) => {
         let assignees = [];
         for (let contact of data.rows) {
-          console.log(contact.data[1]);
           assignees.push({ text: contact.data[1], value: contact.data[1], checked: false });
         }
         assignees.sort();

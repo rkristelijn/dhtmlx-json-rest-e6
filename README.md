@@ -1,4 +1,4 @@
-This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framework](https://docs.dhtmlx.com/optimus__index.html) (DHTMLX in es6) connected to a REST API on Node using JSON and fetch.
+This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framework](https://docs.dhtmlx.com/optimus__index.html) (DHTMLX in es6) not yet connected to a REST API on Node using JSON and fetch.
 
 # Demo
 [gius.nl](http://gius.nl/dhtmlx-es6/)
@@ -17,7 +17,7 @@ This is a demo project to see how DHTMLX performs using [DHTMLX Optimus Framewor
 - [X] Restructure files [feature-oriented instead of type-oriented](https://softwareengineering.stackexchange.com/questions/338597/folder-by-type-or-folder-by-feature)
 - [X] Implement the views per es6
 - [x] Add missing GUI's to create,update,delete data (sales, events, settings)
-- [ ] Restructure data to save dateTypes in real dates, numberTypes in real numbers, implement bounded picklists
+- [x] Restructure data to save dateTypes in real dates, numberTypes in real numbers, implement bounded picklists
 - [ ] Add the REST API from [My version of CRM System - demo app](https://github.com/rkristelijn/dhtmlx-json-node)
 
 # Solved challenges
