@@ -11,7 +11,7 @@ export class ContactsDetailView extends DHXView {
       { type: "input", name: "phone", label: "Phone" },
       { type: "input", name: "company", label: "Company" },
       { type: "combo", name: "pos", label: "Position", options: this._generateOptions() },
-      { type: "calendar", name: "dob", label: "Date of Birth" },
+      { type: "calendar", name: "dob", label: "Date of Birth", dateFormat: "%d/%m/%Y" },
       { type: "input", name: "info", label: "Additional info <br>(No HTML Allowed)", rows: 3 },
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
@@ -35,7 +35,7 @@ export class ContactsDetailView extends DHXView {
       setItemValue: (name, value) => {
         switch (name) {
           case 'pos':
-            if(!isNaN(parseInt(value))) this.ui.getCombo('pos').selectOption(value);
+            if (!isNaN(parseInt(value))) this.ui.getCombo('pos').selectOption(value);
             break;
           default:
             this.ui.setItemValue(name, value);
