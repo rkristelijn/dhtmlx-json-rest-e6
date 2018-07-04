@@ -29,22 +29,17 @@ export class ProjectsDetailView extends DHXView {
           { value: 'Anna Harrison', text: 'Anna Harrison' }
         ]
       },
-      //{ type: "combo", name: 'assign', label: 'Assigned to', comboType: 'checkbox', options: this._getAllAssignees() },
       { type: "input", name: "info", label: "Additional info<br>(HTML Allowed)", rows: 3 },
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
 
-    //this.assignees = this._getAllAssignees();
-
     this.ui.attachEvent('onChange', (fieldName, value) => {
-      // console.log('onChange', fieldName, value);
       let rowId = this.ui.getFormData().id;
       switch (fieldName) {
         case "assign":
           break;
         default:
-          //newValue = value;
-          this.getService('ProjectsGridService').setCellValue(rowId, fieldName, newValue);
+          this.getService('ProjectsGridService').setCellValue(rowId, fieldName, value);
       }
     });
 
@@ -52,7 +47,6 @@ export class ProjectsDetailView extends DHXView {
 
     this.combo.attachEvent('onCheck', (value, state) => {
       let rowId = this.ui.getFormData().id;
-      //console.log('onCheck', value, state, rowId);
       let newValue = this.combo.getChecked().join(', ');
       this.getService('ProjectsGridService').setCellValue(rowId, 'assign', newValue);
     });
@@ -62,28 +56,23 @@ export class ProjectsDetailView extends DHXView {
         this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/projects/project.png" border="0" class="form_photo">`;
         let assigneesCombo = this.ui.getCombo('assign');
         let checkedAssignees = data.assign.split(', ');
-
         assigneesCombo.forEachOption(function (item) {
           let index = assigneesCombo.getIndexByValue(item.value);
           if (checkedAssignees.indexOf(item.value) == -1) {
             assigneesCombo.setChecked(index, false);
           } else {
             assigneesCombo.setChecked(index, true);
-
           }
         });
-
-        // for (let item of checkedAssignees) {
-        //   let index = assigneesCombo.getIndexByValue(item);
-        //   assigneesCombo.setChecked(index, true);
-        // }
-
         this.ui.setFormData(data);
       },
       setItemValue: (name, value) => {
         switch (name) {
+          case 'due':
+            console.log(name, value);
+            this.ui.setItemValue(name, value);
           case 'status':
-            this.ui.getCombo('status').selectOption(value);
+            if (!isNaN(parseInt(value))) this.ui.getCombo('status').selectOption(value);
             break;
           default:
             this.ui.setItemValue(name, value);
@@ -108,16 +97,13 @@ export class ProjectsDetailView extends DHXView {
       .then(response => response.json())
       .then((data) => {
         let assignees = [];
-        console.log('resolving');
         for (let contact of data.rows) {
           console.log(contact.data[1]);
           assignees.push({ text: contact.data[1], value: contact.data[1], checked: false });
         }
         assignees.sort();
-        console.log('returning 1', assignees);
         return assignees;
       }));
-    console.log('returning 2', assignees);
     return assignees;
   }
 }

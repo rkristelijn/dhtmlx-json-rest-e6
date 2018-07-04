@@ -6,7 +6,7 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 
 
-//var es = require("event-stream");
+var es = require("event-stream");
 var merge = require('merge-stream');
 var webpack = require("webpack-stream");
 var clean = require("gulp-clean");
