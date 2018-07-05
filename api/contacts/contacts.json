@@ -1,0 +1,274 @@
+{
+  "head": [
+    {
+      "width": "55",
+      "id": "photo",
+      "type": "ro",
+      "align": "center",
+      "sort": "str",
+      "value": "<span style='padding/left:60px;'>Name</span>"
+    },
+    {
+      "width": "100",
+      "id": "name",
+      "type": "ed",
+      "align": "left",
+      "sort": "str",
+      "value": "#cspan"
+    },
+    {
+      "width": "100",
+      "id": "dob",
+      "type": "dhxCalendarA",
+      "align": "left",
+      "sort": "date",
+      "value": "Date of Birth"
+    },
+    {
+      "width": "130",
+      "id": "pos",
+      "type": "coro",
+      "align": "left",
+      "sort": "str",
+      "value": "Position"
+    },
+    {
+      "width": "170",
+      "id": "email",
+      "type": "ed",
+      "align": "left",
+      "sort": "na",
+      "value": "E/mail Address"
+    },
+    {
+      "width": "100",
+      "id": "phone",
+      "type": "ed",
+      "align": "left",
+      "sort": "na",
+      "value": "Phone"
+    },
+    {
+      "width": "150",
+      "id": "company",
+      "type": "ed",
+      "align": "left",
+      "sort": "str",
+      "value": "Company"
+    },
+    {
+      "width": "*",
+      "id": "info",
+      "type": "txttxt",
+      "align": "left",
+      "sort": "na",
+      "value": "Additional"
+    }
+  ],
+  "rows": [
+    {
+      "id": "1",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/margaret-black.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Margaret Black",
+        "31/08/1985",
+        "Chief Executive Officer (CEO)",
+        "mblack_ceo@mail.com",
+        "1-805-287-4750",
+        "M Black Ltd"
+      ]
+    },
+    {
+      "id": "2",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/john-woken.jpg\" border=\"0\" class=\"contact_photo\">",
+        "John Woken",
+        "23/03/1987",
+        "Business Analyst",
+        "john.woken@mail.com",
+        "1-867-777-9834",
+        "M-Black Ltd"
+      ]
+    },
+    {
+      "id": "3",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/jake-peterson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Jake Peterson",
+        "26/11/1982",
+        "Accountant",
+        "jake.peterson@mail.com",
+        "1-845-257-9751",
+        "Jackson and partners Inc"
+      ]
+    },
+    {
+      "id": "4",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/bill-jackson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Bill Jackson",
+        "02/05/1980",
+        "Web Developer",
+        "Bill.Jackson@mail.com",
+        "1-874-548-9751",
+        "BFG Consulting Inc"
+      ]
+    },
+    {
+      "id": "5",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/jennifer-miles.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Jennifer Miles",
+        "16/04/1985",
+        "Project Manager",
+        "Jennifer.Miles@mail.com",
+        "1-852-895-9752",
+        "F&M Ltd"
+      ]
+    },
+    {
+      "id": "6",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/cortny-barrens.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Cortny Barrens",
+        "19/06/1979",
+        "Sales Manager",
+        "Cortny.Barrens@mail.com",
+        "1-842-458-1452",
+        "F&M Ltd"
+      ]
+    },
+    {
+      "id": "7",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/edward-eden.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Edward Eden",
+        "12/01/1983",
+        "Business Analyst",
+        "Edward.Eden@mail.com",
+        "1-863-452-4750",
+        "BFG Consulting Inc"
+      ]
+    },
+    {
+      "id": "8",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/andrew-scott.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Andrew Scott",
+        "14/02/1980",
+        "HR Manager",
+        "Andrew.Scott@mail.com",
+        "1-874-452-4873",
+        "Jackson and partners Inc"
+      ]
+    },
+    {
+      "id": "9",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/steve-anderson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Steve Anderson",
+        "16/04/1978",
+        "Business Analyst",
+        "Steve.Anderson@mail.com",
+        "1-863-548-4874",
+        "Bank of LA"
+      ]
+    },
+    {
+      "id": "10",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/jane-wilson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Jane Wilson",
+        "24/06/1980",
+        "Product Manager",
+        "Jane.Wilson@mail.com",
+        "1-863-452-9834",
+        "HDF Insurance"
+      ]
+    },
+    {
+      "id": "11",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/alan-robbinson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Alan Robbinson",
+        "15/08/1970",
+        "Web Developer",
+        "Alan.Robbinson@mail.com",
+        "1-863-452-9752",
+        "Meriton Group"
+      ]
+    },
+    {
+      "id": "12",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/william-parson.jpg\" border=\"0\" class=\"contact_photo\">",
+        "William Parson",
+        "01/10/1969",
+        "Chief Engineer",
+        "William.Parson@mail.com",
+        "1-874-452-4877",
+        "ANG Learning"
+      ]
+    },
+    {
+      "id": "13",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/charlotte-wolks.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Charlotte Wolks",
+        "03/12/1989",
+        "Marketing Specialist",
+        "Charlotte.Wolks@mail.com",
+        "1-863-452-4750",
+        "HDF Insurance"
+      ]
+    },
+    {
+      "id": "14",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/pamela-worner.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Pamela Worner",
+        "16/11/1976",
+        "Business Analyst",
+        "Pamela.Worner@mail.com",
+        "1-863-548-4879",
+        "ANG Learning"
+      ]
+    },
+    {
+      "id": "15",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/ralf-ross.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Ralf Ross",
+        "28/09/1973",
+        "Sales Manager",
+        "Ralf.Ross@mail.com",
+        "1-863-452-9751",
+        "Bank of LA"
+      ]
+    },
+    {
+      "id": "16",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/dan-witley.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Dan Witley",
+        "04/01/1978",
+        "Full-stack Web Developer",
+        "Dan.Witley@mail.com",
+        "1-874-452-9834",
+        "Bank of LA"
+      ]
+    },
+    {
+      "id": "17",
+      "data": [
+        "<img src=\"codebase/imgs/contacts/small/anna-harrison.jpg\" border=\"0\" class=\"contact_photo\">",
+        "Anna Harrison",
+        "07/05/1984",
+        "QA Engineer",
+        "Anna.Harrison@mail.com",
+        "1-863-548-9751",
+        "Meriton Group"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { DHXView } from 'dhx-optimus';
 import route from 'riot-route';
 
-const contactsUrl = 'codebase/contacts.json';
+const contactsUrl = 'api/contacts';
 
 export class ContactsGridView extends DHXView {
   render() {

@@ -43,7 +43,7 @@ var config = {
   },
   devServer:{
     proxy: {
-      '/server/*': pkg.localURL
+      '/api/*': 'http://localhost:3000/api'
     }
   },
   plugins: [
