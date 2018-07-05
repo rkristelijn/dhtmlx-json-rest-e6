@@ -26,7 +26,7 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 - [ ] Connect Node REST API
   - [ ] contacts
     - [x] GET
-    - [ ] PUT
+    - [x] PUT
     - [ ] POST
     - [ ] DELETE
 
@@ -36,10 +36,12 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 
 
 - [ ] I've learned that all events need to be handled manually across components showing the same data. It would be better if there's a shared model, where components can subscribe on.
-- [ ] Bug: when a validation fires, only enter/escape can close the modal dialogue, pressing 'ok' seems to work differently
-- [ ] Bug: when a date is being picked by the grid, the form temporarily will display 'Invalid Date'. it does not seem related to the events, this is because `onRowSelect` is fired upon edit
+- [/] Bug: when a validation fires, only enter/escape can close the modal dialogue, pressing 'ok' seems to work differently - kind-of fixed on contacts; edit cell doesn't fire again
+- [/] Bug: when a date is being picked by the grid, the form temporarily will display 'Invalid Date'. it does not seem related to the events, this is because `onRowSelect` is fired upon edit; fixed on contacts
 - [ ] Bug: `npm run build` works partly, I still need to remove `/codebase` from all sources and minification doesn't happen
 - [ ] Feature: missing loader indicator when SPA is waiting on data
 - [ ] Bug: proxy script adds another api/ so temporariliy fixed this using adjusted route that answers on /api/api
 - [ ] Feature: Not having to `npm start` and `npm run server` in dev mode
+- [ ] Feature: Show errors on REST API error
+- [ ] Bug: why favicon.ico after each call?
 
