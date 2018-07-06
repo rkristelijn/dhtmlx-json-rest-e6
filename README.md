@@ -18,9 +18,8 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 - `cd dhtmlx-json-rest-e6`
 - `npm i` - to install dependancies
 - `npm run seed` - for test data
-- `npm start` - for REST API on port :3000
-- `npm run server` - for starting webpack on :8080 using proxy /api -> localhost:3000/api
-
+- `npm start` - for REST API on port :3000 and for starting webpack on :8080 using proxy /api -> localhost:3000/api
+- 
 # Plan
 
 - [ ] Connect Node REST API
@@ -44,4 +43,6 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 - [ ] Feature: Not having to `npm start` and `npm run server` in dev mode
 - [ ] Feature: Show errors on REST API error
 - [ ] Bug: why favicon.ico after each call?
+- [ ] Clean up unused files
+- [ ] fetch for initial GET too
 
