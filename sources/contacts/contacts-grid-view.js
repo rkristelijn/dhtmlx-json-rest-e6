@@ -141,9 +141,14 @@ export class ContactsGridView extends DHXView {
         this.ui.selectRowById(id, true, true, true);
       },
       getRowData: (id) => {
-        let data = this.ui.getRowData(id);
-        data.id = id;
-        return data;
+        //console.log(id, this._isValidId());
+        //if (this._isValidId()) {
+        //  console.log('invalid id', id);
+        //} else {
+          let data = this.ui.getRowData(id);
+          data.id = id;
+          return data;
+        //}
       },
       getAllRowIds: () => {
         return this.ui.getAllRowIds(',').split(',');
