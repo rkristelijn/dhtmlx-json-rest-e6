@@ -85,6 +85,9 @@ let contactsController = (Model) => {
 
   let _createOne = (data, callback) => {
     if(!data.photo) data.photo = `<img src='codebase/imgs/contacts/small/some-one${Math.floor(Math.random() * 10)}.png' border='0' class='contact_photo' height='40' width='40'>`;
+    if(!data.dob) data.dob = '01/01/1991';
+    if(!data.pos) data.pos = 'Chief Engineer';
+    if(!data.name) data.name = 'Hello World';
     Model.create(data, (err, contact) => {
       if (err) callback(err, null);
       else callback(null, contact);

@@ -26,37 +26,36 @@ export class ContactsGridView extends DHXView {
       }
     }
 
-    // this.ui.attachEvent('onValidationError', (row, col, value) => {
-    //   switch (col) {
-    //     case 1:
-    //       this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
-    //         (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //       );
-    //       return true;
-    //       break;
-    //     case 2:
-    //       let parts = value.split('/');
-    //       if (parts.length !== 3) {
-    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
-    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //         );
-    //         return true;
-    //       }
-    //       let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
-    //       if (dt === 'Invalid Date') return true;
-    //       if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
-    //         return false;
-    //       } else {
-    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
-    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //         );
-    //         return true;
-    //       }
-    //       break;
-    //   }
-    // });
+    this.ui.attachEvent('onValidationError', (row, col, value) => {
+      switch (col) {
+        case 1:
+          this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
+            (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+          );
+          return true;
+          break;
+        case 2:
+          let parts = value.split('/');
+          if (parts.length !== 3) {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
+          if (dt === 'Invalid Date') return true;
+          if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+            return false;
+          } else {
+            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
+              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+            );
+            return true;
+          }
+          break;
+      }
+    });
     this.ui.attachEvent('onRowAdded', (id) => {
-      console.log('onRowAdded', id);
       fetch(`${contactsUrl}`, {
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +64,6 @@ export class ContactsGridView extends DHXView {
       })
         .then(response => response.json())
         .then(response => {
-          console.info('calling onAfterRowAdded', response);
           this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
         })
     });
@@ -94,13 +92,16 @@ export class ContactsGridView extends DHXView {
       }
     }
     this.attachEvent('ToolbarClick', (id) => {
-      //dhtmlx.alert(id + ' button was clicked');
       this.getService('ContactsGridService').addRow();
     });
     this.ui.attachEvent('onAfterRowAdded', (tempId, serverId, values) => {
-      console.info('onAfterRowAdded', tempId, serverId, values);
       this.ui.changeRowId(tempId, serverId);
       this.ui.cells(serverId, 0).setValue(values.photo);
+      this.ui.cells(serverId, 1).setValue(values.name);
+      this.ui.cells(serverId, 2).setValue(values.dob);
+      this.ui.cells(serverId, 3).setValue(values.pos);
+
+      window.history.replaceState({ type: 'contact', serverId: serverId }, `Contact: ${serverId}`, `#contacts/${serverId}`);
     });
 
 
@@ -151,8 +152,8 @@ export class ContactsGridView extends DHXView {
       },
       addRow: (values) => {
         let tempId = this.ui.uid();
-        console.info('addRow', tempId, values);
         this.ui.addRow(tempId, "");
+        this.ui.selectRowById(tempId, true, true, true);
       }
     });
 
