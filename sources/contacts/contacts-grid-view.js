@@ -92,7 +92,14 @@ export class ContactsGridView extends DHXView {
       }
     }
     this.attachEvent('ToolbarClick', (id) => {
-      this.getService('ContactsGridService').addRow();
+      switch (id) {
+        case "add":
+          this.getService('ContactsGridService').addRow();
+          break;
+        case "del":
+          this.getService('ContactsGridService').deleteSelectedRow();
+          break;
+      }
     });
     this.ui.attachEvent('onAfterRowAdded', (tempId, serverId, values) => {
       this.ui.changeRowId(tempId, serverId);
@@ -102,6 +109,18 @@ export class ContactsGridView extends DHXView {
       this.ui.cells(serverId, 3).setValue(values.pos);
 
       window.history.replaceState({ type: 'contact', serverId: serverId }, `Contact: ${serverId}`, `#contacts/${serverId}`);
+    });
+
+    this.ui.attachEvent('onAfterRowDeleted', (id, pid) => {
+      fetch(`${contactsUrl}/${id}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'DELETE'
+      })
+        .then(response => {
+          console.log(response);
+        });
     });
 
 
@@ -154,6 +173,17 @@ export class ContactsGridView extends DHXView {
         let tempId = this.ui.uid();
         this.ui.addRow(tempId, "");
         this.ui.selectRowById(tempId, true, true, true);
+      },
+      deleteSelectedRow: () => {
+        let id = this.ui.getSelectedRowId();
+        let index = this.ui.getRowIndex(id);
+        console.log('deleting', id);
+        this.ui.deleteRow(id);
+
+        if (index < this.ui.getRowsNum())
+          this.ui.selectRow(index, true);
+        else
+          this.ui.selectRow(index - 1, true);
       }
     });
 
