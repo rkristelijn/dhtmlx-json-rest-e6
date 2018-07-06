@@ -30,6 +30,7 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
     - [ ] DELETE
 
 # Solved challenges
+- [x] Feature: Not having to `npm start` and `npm run server` in dev mode
 
 # Back log
 
@@ -40,7 +41,6 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 - [ ] Bug: `npm run build` works partly, I still need to remove `/codebase` from all sources and minification doesn't happen
 - [ ] Feature: missing loader indicator when SPA is waiting on data
 - [ ] Bug: proxy script adds another api/ so temporariliy fixed this using adjusted route that answers on /api/api
-- [ ] Feature: Not having to `npm start` and `npm run server` in dev mode
 - [ ] Feature: Show errors on REST API error
 - [ ] Bug: why favicon.ico after each call?
 - [ ] Clean up unused files
