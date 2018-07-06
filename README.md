@@ -26,7 +26,7 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
   - [ ] contacts
     - [x] GET
     - [x] PUT
-    - [ ] POST
+    - [/] POST
     - [ ] DELETE
 
 # Solved challenges
@@ -45,4 +45,5 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
 - [ ] Bug: why favicon.ico after each call?
 - [ ] Clean up unused files
 - [ ] fetch for initial GET too
+- [ ] Feature: the views scream for a controller
 

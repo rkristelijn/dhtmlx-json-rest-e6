@@ -5,10 +5,7 @@ const ContactsSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  photo: {
-    type: String,
-    default: "<img src='imgs/contacts/small/some-one.png' border='0' class='contact_photo' height='40' width='40'>"
-  },
+  photo: String,
   name: String,
   dob: String,
   pos: String,

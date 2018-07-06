@@ -21,6 +21,7 @@ export class TopbarView extends DHXView {
     let struct = [
       { id: 'title', type: 'text', text: '<span class="topbar_title">Contacts</span>' },
       { type: 'spacer' },
+      { id: 'del', type: 'button', text: '', img: 'fa fa-minus-circle' },
       { id: 'add', type: 'button', text: '', img: 'fa fa-plus-circle' }
     ];
     this.ui.loadStruct(struct);

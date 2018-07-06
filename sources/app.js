@@ -7,7 +7,6 @@ import { TopView } from './top/top-view.js';
 class MyApp extends DHXApp {
   constructor(config) {
     super(config);
-    this.attachEvent('ToolbarClick', (id) => dhtmlx.alert(id + ' button was clicked'));
   }
   render() {
     this.show(TopView);

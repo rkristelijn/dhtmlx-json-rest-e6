@@ -26,35 +26,50 @@ export class ContactsGridView extends DHXView {
       }
     }
 
-    this.ui.attachEvent('onValidationError', (row, col, value) => {
-      switch (col) {
-        case 1:
-          this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
-            (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-          );
-          return true;
-          break;
-        case 2:
-          let parts = value.split('/');
-          if (parts.length !== 3) {
-            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
-              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-            );
-            return true;
-          }
-          let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
-          if (dt === 'Invalid Date') return true;
-          if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
-            return false;
-          } else {
-            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
-              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-            );
-            return true;
-          }
-          break;
-      }
+    // this.ui.attachEvent('onValidationError', (row, col, value) => {
+    //   switch (col) {
+    //     case 1:
+    //       this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
+    //         (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //       );
+    //       return true;
+    //       break;
+    //     case 2:
+    //       let parts = value.split('/');
+    //       if (parts.length !== 3) {
+    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
+    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //         );
+    //         return true;
+    //       }
+    //       let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
+    //       if (dt === 'Invalid Date') return true;
+    //       if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+    //         return false;
+    //       } else {
+    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
+    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //         );
+    //         return true;
+    //       }
+    //       break;
+    //   }
+    // });
+    this.ui.attachEvent('onRowAdded', (id) => {
+      console.log('onRowAdded', id);
+      fetch(`${contactsUrl}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.info('calling onAfterRowAdded', response);
+          this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
+        })
     });
+
     this.ui.editCellHandler = (stage, rowId, colIndex, newValue, oldValue) => {
       const beforeStart = 0;
       const editorOpened = 1;
@@ -78,6 +93,16 @@ export class ContactsGridView extends DHXView {
         return true;
       }
     }
+    this.attachEvent('ToolbarClick', (id) => {
+      //dhtmlx.alert(id + ' button was clicked');
+      this.getService('ContactsGridService').addRow();
+    });
+    this.ui.attachEvent('onAfterRowAdded', (tempId, serverId, values) => {
+      console.info('onAfterRowAdded', tempId, serverId, values);
+      this.ui.changeRowId(tempId, serverId);
+      this.ui.cells(serverId, 0).setValue(values.photo);
+    });
+
 
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
@@ -123,6 +148,11 @@ export class ContactsGridView extends DHXView {
           "Sales Manager",
           "Web Developer"
         ];
+      },
+      addRow: (values) => {
+        let tempId = this.ui.uid();
+        console.info('addRow', tempId, values);
+        this.ui.addRow(tempId, "");
       }
     });
 
