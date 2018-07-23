@@ -5,7 +5,7 @@ let url = 'api/contacts';
 export class ContactViewController extends DHXView {
     constructor(parent) {
         super(parent);
-        this.debug = true;
+        this.debug = false;
         this.addService(serviceName, {
             GET: () => {
                 if (parent.callEvent('preGET')) {
@@ -40,13 +40,12 @@ export class ContactViewController extends DHXView {
             },
             PUT: (id, data) => {
                 if (parent.callEvent('prePUT', [data])) {
-                    console.log('sending...', data);
                     return fetch(`${url}/${id}`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         method: 'PUT',
-                        body: data
+                        body: JSON.stringify(data)
                     })
                         .then(response => response.json())
                         .then(response => {

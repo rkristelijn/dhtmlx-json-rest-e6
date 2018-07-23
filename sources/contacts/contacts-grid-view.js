@@ -5,7 +5,6 @@ const contactsUrl = 'api/contacts';
 
 export class ContactsGridView extends DHXView {
   render() {
-
     this.ui = this.root.attachGrid();
     this.ui.enableEditEvents(true, false, true);
     this.ui.enableValidation(true);
@@ -27,88 +26,11 @@ export class ContactsGridView extends DHXView {
       }
     }
 
-    // this.ui.attachEvent('onValidationError', (row, col, value) => {
-    //   switch (col) {
-    //     case 1:
-    //       this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
-    //         (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //       );
-    //       return true;
-    //       break;
-    //     case 2:
-    //       let parts = value.split('/');
-    //       if (parts.length !== 3) {
-    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
-    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //         );
-    //         return true;
-    //       }
-    //       let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
-    //       if (dt === 'Invalid Date') return true;
-    //       if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
-    //         return false;
-    //       } else {
-    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
-    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-    //         );
-    //         return true;
-    //       }
-    //       break;
-    //   }
-    // });
+    //attachEvents Globals
     this.attachEvent('setFieldValue', (id, field, value) => {
-      //let id = this.ui.getSelectedRowId();
       let fieldIndex = this.ui.getColIndexById(field);
-      console.log('grid', id, field, value, fieldIndex);
       this.ui.cells(id, fieldIndex).setValue(value);
-
     });
-    this.ui.attachEvent('onRowAdded', (id) => {
-      this.getService('ContactsModelService').create({
-        name: 'Enter name',
-        dob: '01/01/1990',
-        pos: 'Sales Manager'
-      }).then(data => {
-        console.log('onRowAdded', data);
-        this.ui.callEvent('onAfterRowAdded', [id, data._id, data]);
-      });
-      // fetch(`${contactsUrl}`, {
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   method: 'POST'
-      // })
-      //   .then(response => response.json())
-      //   .then(response => {
-      //     this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
-      //   })
-    });
-
-    this.ui.editCellHandler = (stage, id, colIndex, newValue, oldValue) => {
-      // const beforeStart = 0;
-      // const editorOpened = 1;
-      const editorClosed = 2;
-
-      if (stage === editorClosed & newValue !== oldValue) {
-        let fieldName = this.ui.getColumnId(colIndex);
-        this.getService('ContactsModelService').setFieldValue(id, fieldName, newValue);
-        //   let request = `{"${fieldName}":"${newValue}"}`;
-        //   fetch(`${contactsUrl}/${rowId}`, {
-        //     headers: {
-        //       'Content-Type': 'application/json'
-        //     },
-        //     method: 'PUT',
-        //     body: request
-        //   })
-        //     .then(response => response.json())
-        //     .then(response => {
-        //       this.getService('ContactsModelService').setFieldValue(fieldName, response[fieldName]);
-        //       this.getService('ContactsFormService').setItemValue(fieldName, response[fieldName]);
-        //     })
-
-      }
-      return true;
-    }
     this.attachEvent('ToolbarClick', (id) => {
       switch (id) {
         case "add":
@@ -119,33 +41,53 @@ export class ContactsGridView extends DHXView {
           break;
       }
     });
+
+    //attachEvents Locals
+    this.ui.attachEvent('onRowAdded', (id) => {
+      this.getService('ContactsModelService').create({
+        name: 'Enter name',
+        dob: '01/01/1990',
+        pos: 'Sales Manager'
+      }).then(data => {
+        //console.log('onRowAdded', data);
+        this.ui.callEvent('onAfterRowAdded', [id, data._id, data]);
+      });
+    });
     this.ui.attachEvent('onAfterRowAdded', (tempId, serverId, values) => {
       this.ui.changeRowId(tempId, serverId);
       this.ui.cells(serverId, 0).setValue(values.photo);
       this.ui.cells(serverId, 1).setValue(values.name);
       this.ui.cells(serverId, 2).setValue(values.dob);
       this.ui.cells(serverId, 3).setValue(values.pos);
-
       window.history.replaceState({ type: 'contact', serverId: serverId }, `Contact: ${serverId}`, `#contacts/${serverId}`);
     });
-
     this.ui.attachEvent('onAfterRowDeleted', (id, pid) => {
       this.getService('ContactsModelService').delete(id)
-      .then(data => {
-        console.log('onAfterRowDeleted', data);
-      });
-      // fetch(`${contactsUrl}/${id}`, {
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   method: 'DELETE'
-      // })
-      //   .then(response => {
-      //     console.log(response);
-      //   });
+        .then(data => {
+          //console.log('onAfterRowDeleted', data);
+        });
+    });
+    this.ui.attachEvent('onRowSelect', (id) => {
+      let selectedSameRow = this.previousId === id;
+      if (!selectedSameRow) {
+        this.getService('ContactsModelService').setData(
+          this.getService('ContactsGridService').getRowData(id)
+        );
+        window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
+        this.previousId = id;
+      }
     });
 
+    this.ui.editCellHandler = (stage, id, colIndex, newValue, oldValue) => {
+      const editorClosed = 2;
+      if (stage === editorClosed & newValue !== oldValue) {
+        let fieldName = this.ui.getColumnId(colIndex);
+        this.getService('ContactsModelService').setFieldValue(id, fieldName, newValue);
+      }
+      return true;
+    }
 
+    //services
     this.addService('ContactsGridService', {
       selectFirstRow: () => {
         this.ui.selectRow(0, true);
@@ -199,7 +141,7 @@ export class ContactsGridView extends DHXView {
       deleteSelectedRow: () => {
         let id = this.ui.getSelectedRowId();
         let index = this.ui.getRowIndex(id);
-        console.log('deleting', id);
+        // console.log('deleting', id);
         this.ui.deleteRow(id);
 
         if (index < this.ui.getRowsNum())
@@ -211,20 +153,6 @@ export class ContactsGridView extends DHXView {
 
     this._populateCombo(this.ui.getCombo(3));
     this.previousId = null;
-
-    this.ui.attachEvent('onRowSelect', (id) => {
-      let selectedSameRow = this.previousId === id;
-      if (!selectedSameRow) {
-        this.getService('ContactsModelService').setData(
-          this.getService('ContactsGridService').getRowData(id)
-        )
-        // this.getService('ContactsFormService').load(
-        //   this.getService('ContactsModelService').getData()
-        // );
-        window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
-        this.previousId = id;
-      }
-    });
   }
 
   _populateCombo(combo) {
@@ -249,7 +177,6 @@ export class ContactsGridView extends DHXView {
   _load(callback) {
     this.getService('ContactsModelService').getData().then(
       data => {
-        console.log('_load', data);
         this.ui.parse(data, 'json');
         let rowId = this._getDetailView();
         let isValidId = this._isValidId(rowId);

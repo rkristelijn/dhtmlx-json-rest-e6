@@ -7,13 +7,15 @@ export class ContactViewModel extends DHXView {
         super(parent);
         this.data = {};
         this.controller = this.getService(controllerName);
-        this.debug = true;
+        this.debug = false;
         this.addService(serviceName, {
             setFieldValue: (id, field, value) => {
                 if (parent.callEvent('preSetFieldValue', [field, value])) {
                     this.data[field] = value;
                     return this.getService(controllerName).PUT(
-                        this.data.id, `{"${field}":"${value}"}`
+                        this.data.id, {
+                            [field]:`${value}`
+                        }
                     ).then((data) => {
                         parent.callEvent('setFieldValue', [data._id, field, value]);
                         return (data);
@@ -59,10 +61,6 @@ export class ContactViewModel extends DHXView {
         this.attachEvent('setFieldValue', (id, field, value) => {
             if (this.debug) console.log(serviceName, 'setFieldValue', id, field, value);
         });
-        // this.attachEvent('preSetData', (data) => {
-        //     if (this.debug) console.log(serviceName, 'preSetData', data);
-        //     return true;
-        // });
         this.attachEvent('setData', (data) => {
             if (this.debug) console.log(serviceName, 'setData', data);
         });
@@ -71,7 +69,7 @@ export class ContactViewModel extends DHXView {
         });
         this.attachEvent('create', (data) => {
             if (this.debug) console.log(serviceName, 'create', data);
-        })
+        });
     }
 
     render() {
