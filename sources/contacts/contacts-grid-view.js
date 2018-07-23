@@ -5,6 +5,7 @@ const contactsUrl = 'api/contacts';
 
 export class ContactsGridView extends DHXView {
   render() {
+
     this.ui = this.root.attachGrid();
     this.ui.enableEditEvents(true, false, true);
     this.ui.enableValidation(true);
@@ -26,70 +27,79 @@ export class ContactsGridView extends DHXView {
       }
     }
 
-    this.ui.attachEvent('onValidationError', (row, col, value) => {
-      switch (col) {
-        case 1:
-          this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
-            (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-          );
-          return true;
-          break;
-        case 2:
-          let parts = value.split('/');
-          if (parts.length !== 3) {
-            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
-              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-            );
-            return true;
-          }
-          let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
-          if (dt === 'Invalid Date') return true;
-          if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
-            return false;
-          } else {
-            this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
-              (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
-            );
-            return true;
-          }
-          break;
-      }
+    // this.ui.attachEvent('onValidationError', (row, col, value) => {
+    //   switch (col) {
+    //     case 1:
+    //       this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be empty<br>Press enter`,
+    //         (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //       );
+    //       return true;
+    //       break;
+    //     case 2:
+    //       let parts = value.split('/');
+    //       if (parts.length !== 3) {
+    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>Press enter`,
+    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //         );
+    //         return true;
+    //       }
+    //       let dt = new Date(parts[2], parts[1] - 1, parts[0], 0, 0, 0);
+    //       if (dt === 'Invalid Date') return true;
+    //       if (!(dt === 'Invalid Date') && dt.getDate() === parseInt(parts[0]) && (dt.getMonth() + 1) === parseInt(parts[1]) && dt.getFullYear() === parseInt(parts[2])) {
+    //         return false;
+    //       } else {
+    //         this.ui.confirm.show('alert-warning', 'Wrong field Value', `Value in ${row},${col} should not be dd/mm/yyyy<br>${value} is not a date<br>Press enter`,
+    //           (r) => { this.ui.selectCell(row - 1, col, true, true, true); }
+    //         );
+    //         return true;
+    //       }
+    //       break;
+    //   }
+    // });
+    this.attachEvent('setFieldValue', (id, field, value) => {
+      //let id = this.ui.getSelectedRowId();
+      let fieldIndex = this.ui.getColIndexById(field);
+      console.log('grid', id, field, value, fieldIndex);
+      this.ui.cells(id, fieldIndex).setValue(value);
+
     });
     this.ui.attachEvent('onRowAdded', (id) => {
-      fetch(`${contactsUrl}`, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'POST'
-      })
-        .then(response => response.json())
-        .then(response => {
-          this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
-        })
-    });
+        // fetch(`${contactsUrl}`, {
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   method: 'POST'
+        // })
+        //   .then(response => response.json())
+        //   .then(response => {
+        //     this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
+        //   })
+      });
 
-    this.ui.editCellHandler = (stage, rowId, colIndex, newValue, oldValue) => {
-      const beforeStart = 0;
-      const editorOpened = 1;
+    this.ui.editCellHandler = (stage, id, colIndex, newValue, oldValue) => {
+      // const beforeStart = 0;
+      // const editorOpened = 1;
       const editorClosed = 2;
 
       if (stage === editorClosed & newValue !== oldValue) {
         let fieldName = this.ui.getColumnId(colIndex);
-        let request = `{"${fieldName}":"${newValue}"}`;
-        fetch(`${contactsUrl}/${rowId}`, {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          method: 'PUT',
-          body: request
-        })
-          .then(response => response.json())
-          .then(response => {
-            this.getService('ContactsFormService').setItemValue(fieldName, response[fieldName]);
-          })
+        this.getService('ContactsModelService').setFieldValue(id, fieldName, newValue);
+        //   let request = `{"${fieldName}":"${newValue}"}`;
+        //   fetch(`${contactsUrl}/${rowId}`, {
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     },
+        //     method: 'PUT',
+        //     body: request
+        //   })
+        //     .then(response => response.json())
+        //     .then(response => {
+        //       this.getService('ContactsModelService').setFieldValue(fieldName, response[fieldName]);
+        //       this.getService('ContactsFormService').setItemValue(fieldName, response[fieldName]);
+        //     })
 
-        return true;
       }
+      return true;
     }
     this.attachEvent('ToolbarClick', (id) => {
       switch (id) {
@@ -112,15 +122,15 @@ export class ContactsGridView extends DHXView {
     });
 
     this.ui.attachEvent('onAfterRowDeleted', (id, pid) => {
-      fetch(`${contactsUrl}/${id}`, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'DELETE'
-      })
-        .then(response => {
-          console.log(response);
-        });
+      // fetch(`${contactsUrl}/${id}`, {
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   method: 'DELETE'
+      // })
+      //   .then(response => {
+      //     console.log(response);
+      //   });
     });
 
 
@@ -141,14 +151,9 @@ export class ContactsGridView extends DHXView {
         this.ui.selectRowById(id, true, true, true);
       },
       getRowData: (id) => {
-        //console.log(id, this._isValidId());
-        //if (this._isValidId()) {
-        //  console.log('invalid id', id);
-        //} else {
-          let data = this.ui.getRowData(id);
-          data.id = id;
-          return data;
-        //}
+        let data = this.ui.getRowData(id);
+        data.id = id;
+        return data;
       },
       getAllRowIds: () => {
         return this.ui.getAllRowIds(',').split(',');
@@ -198,9 +203,12 @@ export class ContactsGridView extends DHXView {
     this.ui.attachEvent('onRowSelect', (id) => {
       let selectedSameRow = this.previousId === id;
       if (!selectedSameRow) {
-        this.getService('ContactsFormService').load(
+        this.getService('ContactsModelService').setData(
           this.getService('ContactsGridService').getRowData(id)
-        );
+        )
+        // this.getService('ContactsFormService').load(
+        //   this.getService('ContactsModelService').getData()
+        // );
         window.history.replaceState({ type: 'contact', id: id }, `Contact: ${id}`, `#contacts/${id}`);
         this.previousId = id;
       }
@@ -227,20 +235,24 @@ export class ContactsGridView extends DHXView {
   }
 
   _load(callback) {
-    this.ui.load(contactsUrl, () => {
-      let rowId = this._getDetailView();
-      let isValidId = this._isValidId(rowId);
-      if (rowId !== '' && rowId !== false && !isValidId) {
-        dhtmlx.alert(`${rowId.replace(/[^a-z0-9]/gi, '')} is not found`);
-        route('/contacts');
-      } else {
-        if (isValidId) {
-          this.getService('ContactsGridService').selectRowById(rowId);
+    this.getService('ContactsModelService').getData().then(
+      data => {
+        console.log('_load', data);
+        this.ui.parse(data, 'json');
+        let rowId = this._getDetailView();
+        let isValidId = this._isValidId(rowId);
+        if (rowId !== '' && rowId !== false && !isValidId) {
+          dhtmlx.alert(`${rowId.replace(/[^a-z0-9]/gi, '')} is not found`);
+          route('/contacts');
         } else {
-          this.getService('ContactsGridService').selectFirstRow();
+          if (isValidId) {
+            this.getService('ContactsGridService').selectRowById(rowId);
+          } else {
+            this.getService('ContactsGridService').selectFirstRow();
+          }
+          callback();
         }
-        callback();
       }
-    }, 'json');
+    );
   }
 }

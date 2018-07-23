@@ -16,31 +16,52 @@ export class ContactsDetailView extends DHXView {
       { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
     ]);
 
-    this.ui.attachEvent('onValidationError', (id, index, value) => {
-      console.log('ContactsDetailView:ValidationError', id, index, value);
-      return true;
+    this.attachEvent('setData', (data) => {
+      console.log('form', data);
+      let src = data.photo.match(/src=\"([^\"]*)\"/)[1];
+      this.ui.getContainer('maillink').innerHTML = `<a href="mailto:${data.email}">Send Mail</a>`;
+      this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/contacts/big/${src.match(/[^\/]*$/)[0]}" border="0" class="form_photo">`;
+      this.ui.setFormData(data);
     });
-    this.ui.attachEvent('onChange', (fieldName, value) => {
-      let rowId = this.ui.getFormData().id;
-      this.getService('ContactsGridService').setCellValue(rowId, fieldName, value);
+    this.attachEvent('setFieldValue', (id, field, value) => {
+      console.log('form', id, field, value);
+      switch (field) {
+        case 'pos':
+          if (!isNaN(parseInt(value))) this.ui.getCombo('pos').selectOption(value);
+          break;
+        default:
+          this.ui.setItemValue(field, value);
+          break;
+      }
+
+    })
+
+    // this.ui.attachEvent('onValidationError', (id, index, value) => {
+    //   console.log('ContactsDetailView:ValidationError', id, index, value);
+    //   return true;
+    // });
+    this.ui.attachEvent('onChange', (field, value) => {
+      let id = this.ui.getFormData().id;
+      this.getService('ContactsModelService').setFieldValue(id, field, value);
+      //this.getService('ContactsGridService').setCellValue(rowId, fieldName, value);
     });
 
     this.addService('ContactsFormService', {
-      load: (data) => {
-        let src = data.photo.match(/src=\"([^\"]*)\"/)[1];
-        this.ui.getContainer('maillink').innerHTML = `<a href="mailto:${data.email}">Send Mail</a>`;
-        this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/contacts/big/${src.match(/[^\/]*$/)[0]}" border="0" class="form_photo">`;
-        this.ui.setFormData(data);
-      },
+      // load: (data) => {
+      //   let src = data.photo.match(/src=\"([^\"]*)\"/)[1];
+      //   this.ui.getContainer('maillink').innerHTML = `<a href="mailto:${data.email}">Send Mail</a>`;
+      //   this.ui.getContainer('photo').innerHTML = `<img src="codebase/imgs/contacts/big/${src.match(/[^\/]*$/)[0]}" border="0" class="form_photo">`;
+      //   this.ui.setFormData(data);
+      // },
       setItemValue: (name, value) => {
-        switch (name) {
-          case 'pos':
-            if (!isNaN(parseInt(value))) this.ui.getCombo('pos').selectOption(value);
-            break;
-          default:
-            this.ui.setItemValue(name, value);
-            break;
-        }
+        // switch (name) {
+        //   case 'pos':
+        //     if (!isNaN(parseInt(value))) this.ui.getCombo('pos').selectOption(value);
+        //     break;
+        //   default:
+        //     this.ui.setItemValue(name, value);
+        //     break;
+        // }
       }
     });
   }
