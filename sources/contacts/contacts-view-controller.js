@@ -24,16 +24,17 @@ export class ContactViewController extends DHXView {
             },
             POST: (data) => {
                 if (parent.callEvent('prePOST', [data])) {
-                    fetch(`${url}`, {
+                    return fetch(`${url}`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         method: 'POST',
-                        body: data
+                        body: JSON.stringify(data)
                     })
                         .then(response => response.json())
                         .then(response => {
                             parent.callEvent('POST', [response]);
+                            return (response);
                         });
                 }
             },
@@ -55,8 +56,8 @@ export class ContactViewController extends DHXView {
                 }
             },
             DELETE: (id) => {
-                if (parent.callEvent('preDELETE', [data])) {
-                    fetch(`${url}/${id}`, {
+                if (parent.callEvent('preDELETE', [id])) {
+                    return fetch(`${url}/${id}`, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -64,6 +65,7 @@ export class ContactViewController extends DHXView {
                     })
                         .then(response => {
                             parent.callEvent('DELETE', [id, response]);
+                            return (response);
                         });
                 }
             }

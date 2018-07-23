@@ -35,6 +35,20 @@ export class ContactViewModel extends DHXView {
                         parent.callEvent('getData', [data]);
                         return (data);
                     });
+            },
+            create: (data) => {
+                return this.getService(controllerName).POST(data)
+                    .then(data => {
+                        parent.callEvent('create', [data]);
+                        return (data);
+                    });
+            },
+            delete: (id) => {
+                return this.getService(controllerName).DELETE(id)
+                    .then(data => {
+                        parent.callEvent('delete', [data]);
+                        return (data);
+                    });
             }
         });
         this.attachEvent('preSetFieldValue', (field, value) => {
@@ -54,6 +68,9 @@ export class ContactViewModel extends DHXView {
         });
         this.attachEvent('getData', (data) => {
             if (this.debug) console.log(serviceName, 'getData', data);
+        });
+        this.attachEvent('create', (data) => {
+            if (this.debug) console.log(serviceName, 'create', data);
         })
     }
 

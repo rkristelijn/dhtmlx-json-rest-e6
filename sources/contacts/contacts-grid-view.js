@@ -64,17 +64,25 @@ export class ContactsGridView extends DHXView {
 
     });
     this.ui.attachEvent('onRowAdded', (id) => {
-        // fetch(`${contactsUrl}`, {
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   method: 'POST'
-        // })
-        //   .then(response => response.json())
-        //   .then(response => {
-        //     this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
-        //   })
+      this.getService('ContactsModelService').create({
+        name: 'Enter name',
+        dob: '01/01/1990',
+        pos: 'Sales Manager'
+      }).then(data => {
+        console.log('onRowAdded', data);
+        this.ui.callEvent('onAfterRowAdded', [id, data._id, data]);
       });
+      // fetch(`${contactsUrl}`, {
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   method: 'POST'
+      // })
+      //   .then(response => response.json())
+      //   .then(response => {
+      //     this.ui.callEvent('onAfterRowAdded', [id, response._id, response]);
+      //   })
+    });
 
     this.ui.editCellHandler = (stage, id, colIndex, newValue, oldValue) => {
       // const beforeStart = 0;
@@ -122,6 +130,10 @@ export class ContactsGridView extends DHXView {
     });
 
     this.ui.attachEvent('onAfterRowDeleted', (id, pid) => {
+      this.getService('ContactsModelService').delete(id)
+      .then(data => {
+        console.log('onAfterRowDeleted', data);
+      });
       // fetch(`${contactsUrl}/${id}`, {
       //   headers: {
       //     'Content-Type': 'application/json'
