@@ -1,8 +1,23 @@
+const fs = require('fs');
+
 let controller = (Model) => {
+    let _getStatuses = () => {
+        let options = [];
+        let data = fs.readFileSync('./api/seed-data/status_en.txt', 'utf-8');
+        let rows = data.split(/\r?\n/);
+        for (let row of rows) {
+            options.push({ id: row, value: row })
+        }
+        return options;
+    }
+
     let _head = [
         { "id": "created", "value": "Created", "type": "ro", "width": "0", "align": "left", "sort": "str" },
         { "id": "name", "value": "Story", "type": "ed", "width": "100", "align": "left", "sort": "str" },
-        { "id": "status", "value": "Status", "type": "co", "width": "100", "align": "left", "sort": "str" },
+        {
+            "id": "status", "value": "Status", "type": "co", "width": "100", "align": "left", "sort": "str",
+            "options": _getStatuses()
+        },
         { "id": "due", "value": "Due", "type": "dhxCalendarA", "width": "130", "align": "left", "sort": "date" },
         { "id": "desc", "value": "Description", "type": "txttxt", "width": "*", "align": "left", "sort": "str" }
     ];

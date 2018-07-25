@@ -50,7 +50,6 @@ export class StoriesGridView extends DHXView {
                 dob: '01/01/1990',
                 pos: 'Sales Manager'
             }).then(data => {
-                //console.log('onRowAdded', data);
                 this.ui.callEvent('onAfterRowAdded', [id, data._id, data]);
             });
         });
@@ -65,7 +64,7 @@ export class StoriesGridView extends DHXView {
         this.ui.attachEvent('onAfterRowDeleted', (id, pid) => {
             this.getService(MODEL_SERVICE).delete(id)
                 .then(data => {
-                    //console.log('onAfterRowDeleted', data);
+                    console.log(data);
                 });
         });
         this.ui.attachEvent('onRowSelect', (id) => {
@@ -108,6 +107,12 @@ export class StoriesGridView extends DHXView {
             },
             selectRowById: (id) => {
                 this.ui.selectRowById(id, true, true, true);
+            },
+            getComboOptions: (name) => {
+                //can only be used after rendering
+                let colIndex = this.ui.getColIndexById(name);
+                let comboOptions = this.ui.getCombo(colIndex).keys;
+                return (comboOptions);
             },
         });
     }

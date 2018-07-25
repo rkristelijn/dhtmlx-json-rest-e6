@@ -4,17 +4,20 @@ const SERVICE_NAME = 'AgileBoardModelService';
 const CONTROLLER_NAME = 'AgileBoardControllerService';
 const DEBUG = true;
 
+let pickLists = {};
+
 export class ViewModel extends DHXView {
     constructor(parent) {
         super(parent);
         this.data = {};
+        
         this.addService(SERVICE_NAME, {
             setFieldValue: (id, field, value) => {
-                if (parent.callEvent('preSetFieldValue', [field, value])) {
+                if (parent.callEvent('preSetFieldValue', [id, field, value])) {
                     this.data[field] = value;
                     return this.getService(CONTROLLER_NAME).PUT(
                         this.data.id, {
-                            [field]:`${value}`
+                            [field]: `${value}`
                         }
                     ).then((data) => {
                         parent.callEvent('setFieldValue', [data._id, field, value]);
@@ -31,10 +34,14 @@ export class ViewModel extends DHXView {
                 this.data = data;
                 parent.callEvent('setData', [data]);
             },
+            getPickList(name) {
+                return pickLists[name];
+            },
             getData: () => {
                 return this.getService(CONTROLLER_NAME).GET()
                     .then(data => {
                         parent.callEvent('getData', [data]);
+                        this.populatePickLists(data);
                         return (data);
                     });
             },
@@ -72,7 +79,12 @@ export class ViewModel extends DHXView {
         });
     }
 
-    render() {
-        //
+    render() {}
+    populatePickLists(data) {
+        for (let head of data.head) {
+            if (head.options) {
+                pickLists[head.id] = head.options;
+            }
+        }
     }
 }
