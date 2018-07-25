@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let schema = new mongoose.Schema({
+let Schema = new mongoose.Schema({
   created: {
     type: Date,
     default: Date.now
@@ -20,17 +20,15 @@ let schema = new mongoose.Schema({
   due: String,
   desc: String
 });
-// schema.pre('save', function (next) {
-//   console.log('prePreSave', this.updated, this.num);
-//   this.updated = new Date();
-//   this.num = this.num + 1;
-//   console.log('PreSave', this.updated, this.num);
+Schema.pre('save', function (next) {
+  console.log('prehook')
+  // console.log('prePreSave', this.updated, this.num);
+  // this.updated = new Date();
+  // this.num = this.num + 1;
+  // console.log('PreSave', this.updated, this.num);
+  next();
+});
 
-//   next();
-// });
-// schema.post('save', function(doc) {
-//   console.log('post');
-// })
-let Model = mongoose.model('Stories', schema);
+let Model = mongoose.model('Stories', Schema);
 
 module.exports = Model;

@@ -32,14 +32,14 @@ let controller = (Model) => {
     };
     let _updateOne = (id, data, callback) => {
         //todo: needs to move to model, so this can be done with only one db call
-        data.updated = new Date();
-        Model.findOne({ _id: id }, (err, row) => {
-            data.num = row.num + 1;
+        // data.updated = new Date();
+        // Model.findOne({ _id: id }, (err, row) => {
+        //     data.num = row.num + 1;
             Model.findOneAndUpdate({ _id: id }, data, { new: true }, (err, contact) => {
                 if (err) callback(err, null);
                 else callback(null, contact);
             });
-        });
+        // });
 
     };
     let _createOne = (data, callback) => {
