@@ -7,6 +7,7 @@ import { ProjectsView } from '../projects/projects-view.js';
 import { ContactsView } from '../contacts/contacts-view.js';
 import { EventsView } from '../events/events-view.js';
 import { SettingsView } from '../settings/settings-view.js';
+import { AgileBoardView } from '../agile-board/agile-board-view';
 
 import route from 'riot-route';
 
@@ -45,6 +46,11 @@ export class TopView extends DHXView {
           dhxTop.getService('SidebarService').select('about');
           dhxTop.show(AboutView, 'right');
           break;
+        case 'agileboard':
+          dhxTop.getService('ToolbarService').setText('Agile Board');
+          dhxTop.getService('SidebarService').select('agileboard');
+          dhxTop.show(AgileBoardView, 'right');
+          break;
         default:
           dhxTop.getService('ToolbarService').setText('Contacts');
           dhxTop.getService('SidebarService').select('contacts');
@@ -60,7 +66,7 @@ export class TopView extends DHXView {
         id: 'a',
         header: false,
         width: 34,
-        fix_size: [true,null]
+        fix_size: [true, null]
       }, {
         id: 'b',
         header: false,

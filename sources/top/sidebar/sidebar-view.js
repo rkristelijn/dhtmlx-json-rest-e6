@@ -59,6 +59,11 @@ export class SidebarView extends DHXView {
           icon: 'fa fa-cog'
         },
         {
+          id: 'agileboard',
+          text: 'Agile board',
+          icon: 'fa fa-clipboard-list'
+        },
+        {
           id: 'about',
           text: 'About',
           icon: 'fa fa-info'

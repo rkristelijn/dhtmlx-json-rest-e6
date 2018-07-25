@@ -27,24 +27,28 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
     - [x] GET (read)
     - [x] PUT (updated)
     - [x] POST (create)
-    - [ ] DELETE (delete)
+    - [x] DELETE (delete)
     - [x] Bug: when a date is being picked by the grid, the form temporarily will display 'Invalid Date'. it does not seem related to the events, this is because `onRowSelect` is fired upon edit; fixed on contacts
     - [x] Bug: when a validation fires, only enter/escape can close the modal dialogue, pressing 'ok' seems to work differently - kind-of fixed on contacts; edit cell doesn't fire again
+    - [x] Feature: the views scream for a controller
+    - [x] I've learned that all events need to be handled manually across components showing the same data. It would be better if there's a shared model, where components can subscribe on.
+    - [x] fetch for initial GET too
+  - [ ] agile-board
+    - [ ] create grid and form view
+    - [ ] create task/epic view
+    - [ ] create progress view - burn-down chart
 
 # Solved challenges
 - [x] Feature: Not having to `npm start` and `npm run server` in dev mode
+- [x] Bug: why favicon.ico after each call?
 
 # Back log
 
 
-- [ ] I've learned that all events need to be handled manually across components showing the same data. It would be better if there's a shared model, where components can subscribe on.
 - [ ] Bug: `npm run build` works partly, I still need to remove `/codebase` from all sources and minification doesn't happen
 - [ ] Feature: missing loader indicator when SPA is waiting on data
 - [ ] Bug: proxy script adds another api/ so temporariliy fixed this using adjusted route that answers on /api/api
-- [ ] Feature: Show errors on REST API error
-- [ ] Bug: why favicon.ico after each call?
+- [ ] Feature: Show errors on REST API error (fetch errors)
 - [ ] Clean up unused files
-- [ ] fetch for initial GET too
-- [ ] Feature: the views scream for a controller
 - [ ] Feature: ability to upload avatar picture
 - [ ] Feature: oAuth
