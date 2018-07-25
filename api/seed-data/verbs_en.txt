@@ -1,0 +1,7 @@
+coding
+creating
+migrating
+designing
+building
+testing
+analyzing
