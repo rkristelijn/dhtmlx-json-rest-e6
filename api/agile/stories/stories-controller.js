@@ -13,6 +13,8 @@ let controller = (Model) => {
 
     let _head = [
         { "id": "created", "value": "Created", "type": "ro", "width": "0", "align": "left", "sort": "str" },
+        { "id": "updated", "value": "Updated", "type": "ro", "width": "0", "align": "left", "sort": "str" },
+        { "id": "version", "value": "Version", "type": "ro", "width": "0", "align": "left", "sort": "str" },
         { "id": "name", "value": "Story", "type": "ed", "width": "100", "align": "left", "sort": "str" },
         {
             "id": "status", "value": "Status", "type": "co", "width": "100", "align": "left", "sort": "str",
@@ -29,10 +31,16 @@ let controller = (Model) => {
         });
     };
     let _updateOne = (id, data, callback) => {
-        Model.findOneAndUpdate({ _id: id }, data, { new: true }, (err, contact) => {
-            if (err) callback(err, null);
-            else callback(null, contact);
+        //todo: needs to move to model, so this can be done with only one db call
+        data.updated = new Date();
+        Model.findOne({ _id: id }, (err, row) => {
+            data.num = row.num + 1;
+            Model.findOneAndUpdate({ _id: id }, data, { new: true }, (err, contact) => {
+                if (err) callback(err, null);
+                else callback(null, contact);
+            });
         });
+
     };
     let _createOne = (data, callback) => {
         if (!data.name) data.name = 'Hello World';
@@ -53,7 +61,8 @@ let controller = (Model) => {
         let result = [];
         for (row of rows) {
             result.push({
-                id: row._id, data: [row.created, row.name, row.status, row.due, row.desc]
+                id: row._id,
+                data: [row.created, row.updated, row.num, row.name, row.status, row.due, row.desc]
             });
         }
         return result;
