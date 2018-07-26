@@ -12,7 +12,6 @@ export class AgileBoardDetailView extends DHXView {
             { type: "input", name: "desc", label: "Description", rows: 20 },
             { type: "input", name: "created", label: "Created", attributes: ["readonly"], readonly: true, className: 'input-read-only' },
             { type: "input", name: "updated", label: "Updated", attributes: ["readonly"], readonly: true, className: 'input-read-only' },
-            { type: "input", name: "version", label: "Version", attributes: ["readonly"], readonly: true, className: 'input-read-only' },
             { type: "input", name: "id", label: "RowId", attributes: ["readonly"], readonly: true, className: 'input-read-only' }
         ]);
         this.ui.statusList = [];

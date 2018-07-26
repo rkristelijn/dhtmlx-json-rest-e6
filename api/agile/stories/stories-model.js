@@ -9,10 +9,6 @@ let Schema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  num: {
-    type: Number,
-    default: 0
-  },
   createdBy: String,
   updatedBy: String,
   name: String,
@@ -20,12 +16,8 @@ let Schema = new mongoose.Schema({
   due: String,
   desc: String
 });
-Schema.pre('save', function (next) {
-  console.log('prehook')
-  // console.log('prePreSave', this.updated, this.num);
-  // this.updated = new Date();
-  // this.num = this.num + 1;
-  // console.log('PreSave', this.updated, this.num);
+Schema.pre('findOneAndUpdate', function(next) {
+  this._update.updated = new Date();
   next();
 });
 

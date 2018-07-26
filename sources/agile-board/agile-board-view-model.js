@@ -22,7 +22,7 @@ export class ViewModel extends DHXView {
                     ).then((data) => {
                         parent.callEvent('setFieldValue', [data._id, field, value]);
                         parent.callEvent('setFieldValue', [data._id, 'updated', data.updated]);
-                        parent.callEvent('setFieldValue', [data._id, 'version', data.num]);
+                        // parent.callEvent('setFieldValue', [data._id, 'version', data.num]);
                         return (data);
                     });
                 } else {

@@ -14,7 +14,6 @@ let controller = (Model) => {
     let _head = [
         { "id": "created", "value": "Created", "type": "ro", "width": "0", "align": "left", "sort": "str" },
         { "id": "updated", "value": "Updated", "type": "ro", "width": "0", "align": "left", "sort": "str" },
-        { "id": "version", "value": "Version", "type": "ro", "width": "0", "align": "left", "sort": "str" },
         { "id": "name", "value": "Story", "type": "ed", "width": "100", "align": "left", "sort": "str" },
         {
             "id": "status", "value": "Status", "type": "co", "width": "100", "align": "left", "sort": "str",
@@ -62,7 +61,7 @@ let controller = (Model) => {
         for (row of rows) {
             result.push({
                 id: row._id,
-                data: [row.created, row.updated, row.num, row.name, row.status, row.due, row.desc]
+                data: [row.created, row.updated, row.name, row.status, row.due, row.desc]
             });
         }
         return result;
