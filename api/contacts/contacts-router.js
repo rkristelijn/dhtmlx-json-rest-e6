@@ -1,7 +1,6 @@
 const express = require('express');
 const Contacts = require('./contacts-model');
 const contactsController = require('./contacts-controller')(Contacts);
-const hardCodedValues = false;
 
 let routes = () => {
   let contactsRouter = express.Router();

@@ -5,6 +5,7 @@ const settingsRouter = require('./settings/settings-router')();
 const eventsRouter = require('./events/events-router')();
 const storiesRouter = require('./agile/stories/stories-router')();
 const usersRouter = require('./users/users-router')();
+//const authRouter = require('./auth/auth-router')();
 
 let routes = (app, passport) => {
   let apiRouter = express.Router();
@@ -15,6 +16,7 @@ let routes = (app, passport) => {
   apiRouter.use('/events', eventsRouter);
   apiRouter.use('/stories', storiesRouter);
   apiRouter.use('/users', usersRouter);
+  //apiRouter.use('/auth', authRouter);
 
   apiRouter.get('/', (req, res) => {
     res.json({
