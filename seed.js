@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/cms');
+mongoose.connect('mongodb://localhost:27017/cms', { useNewUrlParser: true });
 mongoose.set('debug', true);
 let db = mongoose.connection;
 

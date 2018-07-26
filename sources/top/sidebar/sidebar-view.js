@@ -5,7 +5,6 @@ export class SidebarView extends DHXView {
     dhtmlXSideBar.prototype.templates.faTiles =
       '<i><div class="dhxsidebar_item_icon #icon#"></div><div class="dhxsidebar_item_text">#text#</div></i>';
     this.ui = this.root.attachSidebar({
-      // single_cell : true,
       template: 'faTiles'
     });
     this.ui.attachEvent('onSelect', (id) => {
@@ -35,8 +34,8 @@ export class SidebarView extends DHXView {
           icon: 'fa fa-bars'
         },
         {
-          id: "sep1",     // separator id
-          type: "separator" // item type, mandatory
+          id: "sep1",
+          type: "separator"
         },
         {
           id: 'contacts',
@@ -62,6 +61,15 @@ export class SidebarView extends DHXView {
           id: 'agileboard',
           text: 'Agile board',
           icon: 'fa fa-clipboard-list'
+        },
+        {
+          id: "sep2",
+          type: "separator"
+        },
+        {
+          id: 'users',
+          text: 'Users',
+          icon: 'fa fa-users-cog'
         },
         {
           id: 'about',

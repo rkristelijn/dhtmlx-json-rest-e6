@@ -33,10 +33,12 @@ First I created [Your First App tutorial](https://docs.dhtmlx.com/tutorials__fir
     - [x] Feature: the views scream for a controller
     - [x] I've learned that all events need to be handled manually across components showing the same data. It would be better if there's a shared model, where components can subscribe on.
     - [x] fetch for initial GET too
-  - [ ] agile-board
-    - [ ] create grid and form view
+  - [/] agile-board
+    - [x] create model for user stories with created, updated and preSave hooks
+    - [x] create grid and form view
     - [ ] create task/epic view
     - [ ] create progress view - burn-down chart
+  - [ ] use passport with local strategy
 
 # Solved challenges
 - [x] Feature: Not having to `npm start` and `npm run server` in dev mode

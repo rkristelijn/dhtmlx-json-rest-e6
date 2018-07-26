@@ -1,16 +1,21 @@
 import { DHXView } from "dhx-optimus";
 
-const SERVICE_NAME = 'AgileBoardModelService';
-const CONTROLLER_NAME = 'AgileBoardControllerService';
+const SERVICE_NAME = 'UsersModelService'; ///todo: not hardcoded
+const CONTROLLER_NAME = 'UsersControllerService';///todo: not hardcoded
 const DEBUG = true;
 
 let pickLists = {};
+const syncFields = [
+    'updated',
+    'created',
+    'updatedBy',
+    'createdBy',
+    'password'
+];
 
 export class ViewModel extends DHXView {
     constructor(parent) {
         super(parent);
-        // this.data = {};
-        
         this.addService(SERVICE_NAME, {
             setFieldValue: (id, field, value) => {
                 if (parent.callEvent('preSetFieldValue', [id, field, value])) {
@@ -21,8 +26,9 @@ export class ViewModel extends DHXView {
                         }
                     ).then((data) => {
                         parent.callEvent('setFieldValue', [data._id, field, value]);
-                        parent.callEvent('setFieldValue', [data._id, 'updated', data.updated]);
-                        parent.callEvent('setFieldValue', [data._id, 'created', data.created]);
+                        for (field of syncFields) {
+                            parent.callEvent('setFieldValue', [data._id, field, data[field]]);
+                        }
                         return (data);
                     });
                 } else {
@@ -37,6 +43,7 @@ export class ViewModel extends DHXView {
                 parent.callEvent('setData', [data]);
             },
             getPickList(name) {
+                // console.log('getPickList', pickLists);
                 return pickLists[name];
             },
             getData: () => {

@@ -8,6 +8,7 @@ import { ContactsView } from '../contacts/contacts-view.js';
 import { EventsView } from '../events/events-view.js';
 import { SettingsView } from '../settings/settings-view.js';
 import { AgileBoardView } from '../agile-board/agile-board-view';
+import { UsersView } from '../users/users-view';
 
 import route from 'riot-route';
 
@@ -50,6 +51,11 @@ export class TopView extends DHXView {
           dhxTop.getService('ToolbarService').setText('Agile Board');
           dhxTop.getService('SidebarService').select('agileboard');
           dhxTop.show(AgileBoardView, 'right');
+          break;
+        case 'users':
+          dhxTop.getService('ToolbarService').setText('User Management');
+          dhxTop.getService('SidebarService').select('users');
+          dhxTop.show(UsersView, 'right');
           break;
         default:
           dhxTop.getService('ToolbarService').setText('Contacts');
