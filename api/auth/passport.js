@@ -27,26 +27,27 @@ module.exports = function (passport) {
         //    done(err, user);
         // });
         console.log('deserializeUser', id);
-        done(err, user);
+        done(null, user);
     });
 
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
-    passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-    },
+    passport.use('local', new LocalStrategy(
+    //     {
+    //     // by default, local strategy uses username and password, we will override with email
+    //     usernameField: 'username',
+    //     passwordField: 'password',
+    //     passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    // },
         function (req, username, password, done) {
-            console.log('local-login', username, password);
+            console.log('local', username, password);
             if (username)
                 username = username.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
             // asynchronous
-            process.nextTick(function () {
-                return (done(null, { id: '123', username: 'user', password: 'pass' }));
+            //process.nextTick(function () {
+                return (done(null, { id: 123, username: 'user', password: 'pass' }));
                 // User.findOne({ 'local.email': email }, function (err, user) {
                 //     // if there are any errors, return the error
                 //     if (err)
@@ -63,7 +64,7 @@ module.exports = function (passport) {
                 //     else
                 //         return done(null, user);
                 // });
-            });
+            //});
 
         }));
 

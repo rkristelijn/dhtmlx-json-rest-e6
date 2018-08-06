@@ -16,7 +16,7 @@ let routes = () => {
   }
 
 
-  contactsRouter.get('/', authenticationMiddleware, (req, res) => {
+  contactsRouter.get('/', (req, res) => {
     contactsController.readAll((err, contacts) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -26,7 +26,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.put('/:id', authenticationMiddleware, (req, res) => {
+  contactsRouter.put('/:id', (req, res) => {
     contactsController.updateOne(req.params.id, req.body, (err, contact) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -36,7 +36,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.post('/', authenticationMiddleware, (req, res) => {
+  contactsRouter.post('/', (req, res) => {
     contactsController.createOne(req.body, (err, contact) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -46,7 +46,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.delete('/:id', authenticationMiddleware, (req, res) => {
+  contactsRouter.delete('/:id', (req, res) => {
     contactsController.deleteOne(req.params.id, (err) => {
       if (err) {
         res.sendStatus(400).end(err);

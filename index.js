@@ -14,18 +14,20 @@ const port = 3000;
 //set up for passport
 require('./api/auth/passport')(passport);
 app.use(cookieParser());
-app.use(session({
-  secret: 'envanjeajajippiejippiejee', // session secret
-  resave: true,
-  saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login session
+
 
 // set up middleware
 app.use(logger());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'envanjeajajippiejippiejee', // session secret
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login session
 
 // set up db connection
 mongoose.connect('mongodb://localhost:27017/cms', { useNewUrlParser: true });

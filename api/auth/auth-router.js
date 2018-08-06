@@ -28,22 +28,24 @@ let routes = (app, passport) => {
         console.log('auth-router.js', '/login', 'GET');
         res.send('login page');
     });
-    router.get('/loggedin', (req, res) => {
-        console.log('auth-router.js', '/loggedin', req.isAuthenticated());
-        res.send(req.user);
-    });
+    // router.get('/loggedin', (req, res) => {
+    //     console.log('auth-router.js', '/loggedin', req.user, req.isAuthenticated());
+    //     res.send(req.user);
+    // });
     // router.get('/profile', passport.authenticateMiddleware(), (req, res) => {
     //     res.send('hello world');
     // });
-    router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/api/auth/loggedin', // redirect to the secure profile section
-        failureRedirect: '/login', // redirect back to the signup page if there is an error
+    router.post('/login', 
+    passport.authenticate('local', { failureRedirect: '/login', }, 
+    (req, res) => {
+        console.log('post', '/login', req.user);
+        res.redirect('/');
     }));
     // router.post('/login', (req,res)=> {
     //     console.log('auth-router.js', '/login', 'POST');
     // });
     router.get('/logout', (req, res) => {
-        console.log('auth-router.js', '/logout', req.isAuthenticated())
+        console.log('auth-router.js', '/logout', req.user, req.isAuthenticated())
         req.logout();
         res.redirect('/');
     });
