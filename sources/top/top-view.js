@@ -9,9 +9,7 @@ import { EventsView } from '../events/events-view.js';
 import { SettingsView } from '../settings/settings-view.js';
 import { AgileBoardView } from '../agile-board/agile-board-view';
 import { UsersView } from '../users/users-view';
-
-import { LoginDetailView } from '../auth/login-detail-view';
-import { LoginViewController } from '../auth/login-view-controller';
+import { LoginView } from '../auth/login-view';
 
 import route from 'riot-route';
 
@@ -21,99 +19,103 @@ export class TopView extends DHXView {
     let loggedIn = true;
     let dhxTop = this;
     let collapsed = true;
+    console.log()
+    // if (loggedIn) {
+    route(function (id) {
+      switch (id) {
+        case 'menu':
+          //
+          break;
+        case 'login':
+          dhxTop.getService('ToolbarService').setText('Login');
+          dhxTop.show(LoginView, 'right');
+          break;
+        case 'contacts':
+          dhxTop.getService('ToolbarService').setText('Contacts');
+          dhxTop.getService('SidebarService').select('contacts');
+          dhxTop.show(ContactsView, 'right');
+          break;
+        case 'projects':
+          dhxTop.getService('ToolbarService').setText('Projects');
+          dhxTop.getService('SidebarService').select('projects');
+          dhxTop.show(ProjectsView, 'right');
+          break;
+        case 'events':
+          dhxTop.getService('ToolbarService').setText('Events');
+          dhxTop.getService('SidebarService').select('events');
+          dhxTop.show(EventsView, 'right');
+          break;
+        case 'settings':
+          dhxTop.getService('ToolbarService').setText('Settings');
+          dhxTop.getService('SidebarService').select('settings');
+          dhxTop.show(SettingsView, 'right');
+          break;
+        case 'about':
+          dhxTop.getService('ToolbarService').setText('About');
+          dhxTop.getService('SidebarService').select('about');
+          dhxTop.show(AboutView, 'right');
+          break;
+        case 'agileboard':
+          dhxTop.getService('ToolbarService').setText('Agile Board');
+          dhxTop.getService('SidebarService').select('agileboard');
+          dhxTop.show(AgileBoardView, 'right');
+          break;
+        case 'users':
+          dhxTop.getService('ToolbarService').setText('User Management');
+          dhxTop.getService('SidebarService').select('users');
+          dhxTop.show(UsersView, 'right');
+          break;
+        default:
+          dhxTop.getService('ToolbarService').setText('Contacts');
+          dhxTop.getService('SidebarService').select('contacts');
+          dhxTop.show(ContactsView, 'right');
+          break;
+      }
+    });
+    route.start(true);
 
-    if (loggedIn) {
-      route(function (id) {
-        switch (id) {
-          case 'menu':
-            //
-            break;
-          case 'contacts':
-            dhxTop.getService('ToolbarService').setText('Contacts');
-            dhxTop.getService('SidebarService').select('contacts');
-            dhxTop.show(ContactsView, 'right');
-            break;
-          case 'projects':
-            dhxTop.getService('ToolbarService').setText('Projects');
-            dhxTop.getService('SidebarService').select('projects');
-            dhxTop.show(ProjectsView, 'right');
-            break;
-          case 'events':
-            dhxTop.getService('ToolbarService').setText('Events');
-            dhxTop.getService('SidebarService').select('events');
-            dhxTop.show(EventsView, 'right');
-            break;
-          case 'settings':
-            dhxTop.getService('ToolbarService').setText('Settings');
-            dhxTop.getService('SidebarService').select('settings');
-            dhxTop.show(SettingsView, 'right');
-            break;
-          case 'about':
-            dhxTop.getService('ToolbarService').setText('About');
-            dhxTop.getService('SidebarService').select('about');
-            dhxTop.show(AboutView, 'right');
-            break;
-          case 'agileboard':
-            dhxTop.getService('ToolbarService').setText('Agile Board');
-            dhxTop.getService('SidebarService').select('agileboard');
-            dhxTop.show(AgileBoardView, 'right');
-            break;
-          case 'users':
-            dhxTop.getService('ToolbarService').setText('User Management');
-            dhxTop.getService('SidebarService').select('users');
-            dhxTop.show(UsersView, 'right');
-            break;
-          default:
-            dhxTop.getService('ToolbarService').setText('Contacts');
-            dhxTop.getService('SidebarService').select('contacts');
-            dhxTop.show(ContactsView, 'right');
-            break;
-        }
-      });
-      route.start(true);
+    this.ui = this.root.attachLayout({
+      pattern: '2U',
+      cells: [{
+        id: 'a',
+        header: false,
+        width: 34,
+        fix_size: [true, null]
+      }, {
+        id: 'b',
+        header: false,
+      }]
+    });
 
-      this.ui = this.root.attachLayout({
-        pattern: '2U',
-        cells: [{
-          id: 'a',
-          header: false,
-          width: 34,
-          fix_size: [true, null]
-        }, {
-          id: 'b',
-          header: false,
-        }]
-      });
+    this.show(TopbarView, this.ui);
+    this.show(SidebarView, this.ui.cells('a'));
 
-      this.show(TopbarView, this.ui);
-      this.show(SidebarView, this.ui.cells('a'));
+    this.addSlot('right', this.ui.cells('b'));
 
-      this.addSlot('right', this.ui.cells('b'));
-
-      this.attachEvent('SideBar', (id) => {
-        switch (id) {
-          case 'menu':
-            dhxTop.ui.cells('a').setWidth(collapsed ? 200 : 34);
-            collapsed = !collapsed;
-            break;
-          default:
-            route(id);
-            break;
-        }
-      });
-    } else {
-      //nog logged in
-      this.ui = this.root.attachLayout({
-        pattern: '1C',
-        cells: [{
-          id: 'a',
-          header: false
-        }]
-      });
-      this.addSlot('right', this.ui.cells('a'));
-      this.show(LoginDetailView, 'right');
-      this.show(LoginViewController, this.ui.cells('a'));
-      console.log('not loggedin');
-    }
+    this.attachEvent('SideBar', (id) => {
+      switch (id) {
+        case 'menu':
+          dhxTop.ui.cells('a').setWidth(collapsed ? 200 : 34);
+          collapsed = !collapsed;
+          break;
+        default:
+          route(id);
+          break;
+      }
+    });
+    // } else {
+    //nog logged in
+    // this.ui = this.root.attachLayout({
+    //   pattern: '1C',
+    //   cells: [{
+    //     id: 'a',
+    //     header: false
+    //   }]
+    // });
+    // this.addSlot('right', this.ui.cells('a'));
+    // this.show(LoginDetailView, 'right');
+    // this.show(LoginViewController, this.ui.cells('a'));
+    //   console.log('not loggedin');
+    // }
   }
 }

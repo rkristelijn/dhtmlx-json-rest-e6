@@ -1,11 +1,22 @@
 const express = require('express');
 const Contacts = require('./contacts-model');
 const contactsController = require('./contacts-controller')(Contacts);
+//const authenticationMiddleware = require('../auth/auth-middleware');
 
 let routes = () => {
   let contactsRouter = express.Router();
 
-  contactsRouter.get('/', (req, res) => {
+  function authenticationMiddleware(req, res, next) {
+    console.log('isAuthenticated:', req.isAuthenticated());
+    if (req.isAuthenticated()) {
+      return next()
+    }
+    //res.send('not logged in')
+    res.redirect('/#auth/login')
+  }
+
+
+  contactsRouter.get('/', authenticationMiddleware, (req, res) => {
     contactsController.readAll((err, contacts) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -15,7 +26,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.put('/:id', (req, res) => {
+  contactsRouter.put('/:id', authenticationMiddleware, (req, res) => {
     contactsController.updateOne(req.params.id, req.body, (err, contact) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -25,7 +36,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.post('/', (req, res) => {
+  contactsRouter.post('/', authenticationMiddleware, (req, res) => {
     contactsController.createOne(req.body, (err, contact) => {
       if (err) {
         res.sendStatus(400).end(err);
@@ -35,7 +46,7 @@ let routes = () => {
     });
   });
 
-  contactsRouter.delete('/:id', (req, res) => {
+  contactsRouter.delete('/:id', authenticationMiddleware, (req, res) => {
     contactsController.deleteOne(req.params.id, (err) => {
       if (err) {
         res.sendStatus(400).end(err);

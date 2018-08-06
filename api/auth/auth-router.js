@@ -1,6 +1,6 @@
 const express = require('express');
-const passport = require('passport');
-
+//const passport = require('passport');
+// authenticateMiddleware = require('./auth-middleware');
 //const Model = require('./stories-model');
 //const controller = require('./stories-controller')(Model);
 
@@ -24,11 +24,26 @@ let routes = (app, passport) => {
     //       }
     //     });
     //   });
+    router.get('/login', (req, res) => {
+        console.log('auth-router.js', '/login', 'GET');
+        res.send('login page');
+    });
+    router.get('/loggedin', (req, res) => {
+        console.log('auth-router.js', '/loggedin', req.isAuthenticated());
+        res.send(req.user);
+    });
+    // router.get('/profile', passport.authenticateMiddleware(), (req, res) => {
+    //     res.send('hello world');
+    // });
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/about', // redirect to the secure profile section
+        successRedirect: '/api/auth/loggedin', // redirect to the secure profile section
         failureRedirect: '/login', // redirect back to the signup page if there is an error
     }));
-    router.get('/logout', (req,res) => {
+    // router.post('/login', (req,res)=> {
+    //     console.log('auth-router.js', '/login', 'POST');
+    // });
+    router.get('/logout', (req, res) => {
+        console.log('auth-router.js', '/logout', req.isAuthenticated())
         req.logout();
         res.redirect('/');
     });

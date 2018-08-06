@@ -14,8 +14,21 @@ export class LoginViewController extends DHXView {
                     method: 'POST',
                     body: JSON.stringify(data)
                 })
-                    .then(response => response.json())
+                    //.then(response => response.json())
                     .then(response => {
+                        console.log(response);
+                        parent.callEvent('POST', [response]);
+                        return (response);
+                    });
+            },
+            logout: (data) => {
+                return fetch(`${API_URL}/logout`, {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'GET'
+                })
+                    //.then(response => response.json())
+                    .then(response => {
+                        console.log(response);
                         parent.callEvent('POST', [response]);
                         return (response);
                     });

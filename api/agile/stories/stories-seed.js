@@ -8,19 +8,15 @@ function getTextFile(file) {
     let data = fs.readFileSync(SEED_LOCATION + file, 'utf-8');
     return data.split(/\r?\n/);
 }
-
 function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
-
 function getRandomNumberBetween(min, max) {
     return Math.floor(Math.random() * max) + min;
 }
-
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 function getGibberish(words, lines, min, max) {
     let ret = "";
     for (let i = 0; i < lines; i++) {
@@ -33,24 +29,15 @@ function getGibberish(words, lines, min, max) {
     }
     return ret;
 }
-
 function getRandomDate(options) {
     let mm, dd, yyyy, m, d, y;
-    if (options && options.month) {
-        mm = month;
-    } else {
-        mm = Math.floor(Math.random() * 12);
-    }
-    if (options && options.year) {
-        yyyy = options.year;
-    } else {
-        yyyy = 2013 + (Math.floor(Math.random() * 5));
-    }
+    if (options && options.month) mm = month;
+    else mm = Math.floor(Math.random() * 12);
+    if (options && options.year) yyyy = options.year;
+    else yyyy = 2013 + (Math.floor(Math.random() * 5));
 
     dd = Math.floor(Math.floor(Math.random() * 31));
-
     let date = new Date(yyyy, mm, dd, 0, 0, 0);
-    console.log(date);
 
     m = date.getMonth() + 1;
     d = date.getDate();

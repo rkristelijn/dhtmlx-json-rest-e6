@@ -1,14 +1,15 @@
 const express = require('express');
-const contactsRouter = require('./contacts/contacts-router')();
-const projectsRouter = require('./projects/projects-router')();
-const settingsRouter = require('./settings/settings-router')();
-const eventsRouter = require('./events/events-router')();
-const storiesRouter = require('./agile/stories/stories-router')();
-const usersRouter = require('./users/users-router')();
-//const authRouter = require('./auth/auth-router')();
 
 let routes = (app, passport) => {
   let apiRouter = express.Router();
+
+  const contactsRouter = require('./contacts/contacts-router')(app, passport);
+  const projectsRouter = require('./projects/projects-router')(app, passport);
+  const settingsRouter = require('./settings/settings-router')(app, passport);
+  const eventsRouter = require('./events/events-router')(app, passport);
+  const storiesRouter = require('./agile/stories/stories-router')(app, passport);
+  const usersRouter = require('./users/users-router')(app, passport);
+  const authRouter = require('./auth/auth-router')(app, passport);
 
   apiRouter.use('/contacts', contactsRouter);
   apiRouter.use('/projects', projectsRouter);
@@ -16,7 +17,7 @@ let routes = (app, passport) => {
   apiRouter.use('/events', eventsRouter);
   apiRouter.use('/stories', storiesRouter);
   apiRouter.use('/users', usersRouter);
-  //apiRouter.use('/auth', authRouter);
+  apiRouter.use('/auth', authRouter);
 
   apiRouter.get('/', (req, res) => {
     res.json({
@@ -25,8 +26,11 @@ let routes = (app, passport) => {
       settings: { links: `${req.protocol}://${req.headers.host}/api/settings` },
       events: { links: `${req.protocol}://${req.headers.host}/api/events` },
       users: { links: `${req.protocol}://${req.headers.host}/api/users` },
-      storiesRouter: { links: `${req.protocol}://${req.headers.host}/api/stories` }
+      stories: { links: `${req.protocol}://${req.headers.host}/api/stories` },
+      auth: { links: `${req.protocol}://${req.headers.host}/api/auth` }
     });
+
+
   });
 
   return apiRouter;

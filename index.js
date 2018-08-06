@@ -12,6 +12,7 @@ const session = require('express-session');
 const port = 3000;
 
 //set up for passport
+require('./api/auth/passport')(passport);
 app.use(cookieParser());
 app.use(session({
   secret: 'envanjeajajippiejippiejee', // session secret
@@ -21,14 +22,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login session
 
-
 // set up middleware
 app.use(logger());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-// set up connection
+// set up db connection
 mongoose.connect('mongodb://localhost:27017/cms', { useNewUrlParser: true });
 mongoose.set('debug', true);
 let db = mongoose.connection;
